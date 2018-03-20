@@ -1,57 +1,84 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
+// import React from 'react';
+// import { Provider } from 'react-redux';
+// import { createStore, applyMiddleware } from 'redux';
 
-import React, { Component } from 'react';
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+// import AppReducer from './app/src/reducers';
+// import AppWithNavigationState from './app/src/navigators/AppNavigator';
+// import { middleware } from './app/src/utils/redux';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+// const store = createStore(
+//   AppReducer,
+//   applyMiddleware(middleware),
+// );
 
-export default class App extends Component{
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
-      </View>
-    );
+// export default class AppSpay extends React.Component {
+//   render() {
+//     return (
+//       <Provider store={store}>
+//         <AppWithNavigationState />
+//       </Provider>
+//     );
+//   }
+// }
+
+
+import React from 'react';
+// import { Provider } from 'react-redux';
+// import { createStore, applyMiddleware } from 'redux';
+
+// import AppReducer from './app/src/reducers';
+import AppNavigator from './app/src/navigators/StartNavigator';
+// import { middleware } from './app/src/utils/redux';
+import thunk from 'redux-thunk';
+// const store = createStore(
+//   AppReducer,
+//   applyMiddleware(middleware),
+// );
+
+const appState = {
+  mobile : '097.365.1368'
+}
+
+
+const getUserById = id => async (getState, dispatch) => {
+  try{
+      const {token} = await callGetUserApi(id);
+      const response = await callGetReportApi(token);
+      const report = JSON.parse(response.report);
+      dispatch({
+          type:"GET_REPORT_SUCCESS",
+          payload:report
+      });
+  }catch(error){
+     dispatch({
+          type:"GET_REPORT_FAIL",
+          payload:{message:"fail to get report"}
+      }); 
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+
+
+const reduer = (state = appState, action) => {
+  switch (action.type) {
+    case 'CHANGE':
+      return {...state,mobile : '0968.434.969'}
+    
+  }
+  return state
+}
+
+import { Provider } from 'react-redux';
+import { createStore,applyMiddleware } from 'redux';
+
+const store = createStore(reduer,applyMiddleware(thunk))
+
+export default class AppSpay extends React.Component {
+  render() {
+    return (
+      <Provider store={store}>
+        <AppNavigator />
+      </Provider>
+    );
+  }
+}
