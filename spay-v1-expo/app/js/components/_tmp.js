@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {color} from '../ultis/theme';
 
-export default class popupAuth extends Component {
+export default class name extends Component {
     // static propTypes = {
 
     // };    

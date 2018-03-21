@@ -2,7 +2,7 @@ import {StyleSheet, Text,View,Image,TextInput,TouchableOpacity } from 'react-nat
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {color} from '../ultis/theme';
-import inputPincode from './inputPincode';
+import InputPincode from './inputPincode';
 
 export default class popupAuth extends Component {
     static propTypes = {
@@ -57,7 +57,7 @@ export default class popupAuth extends Component {
                             selectTextOnFocus={true}
                         /> : 
                     ( this.props.enumInputType === 'PIN_CODE' ?
-                        <inputPincode numberCount = {6} />
+                        <InputPincode numberCount = {6} />
                     :null )
                 }
             </View>

@@ -9,7 +9,7 @@ import {
  } from 'react-native';
  
 import PropTypes from 'prop-types';
-import popupAuth from '../../components/popupAuth'
+import PopupAuth from '../../components/popupAuth'
 import {color} from '../../ultis/theme';
 
 export default class scrLogin extends Component {
@@ -21,21 +21,17 @@ export default class scrLogin extends Component {
     return (
       <View style = {scrLoadingStyle.root}>
             <View style = {scrLoadingStyle.body}>
-                <popupAuth
+                <PopupAuth
                     imgLogo = {require('../../../assets/logos/logoSpay.png')} 
                     txtNotification = 'Nhập số điện thoại để tiếp tục'
-                    // txtDescription = 'Thiết lập mật khẩu bảo vệ:'
-                    // txtInputDefault = 'Nhập mật khẩu'
                     txtButon = 'TIẾP TỤC'
-                    // txtHyperlink1 = 'Thay đổi số điện thoại'
                     enumInputType = 'TEXT'
-                    // txtHyperlink2 = ''
                     autoFocus = {true}
                     onAction = {()=>{
                         this.props.navigation.navigate('Main')
                     }}
                 >
-                </popupAuth>
+                </PopupAuth>
             </View>
 
           <View style = {scrLoadingStyle.bottom}>

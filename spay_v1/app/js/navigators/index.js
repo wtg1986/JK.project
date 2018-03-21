@@ -5,8 +5,21 @@ import NavMainTab from './navMainTab';
 import Loading from '../containers/scrLoading' 
 import {StackNavigator,SwitchNavigator} from 'react-navigation'
 
-import ScrProfile from '../containers/scrProfile';
+import ScrBookHomeStay from '../containers/scrBookHomeStay';
+import ScrBuyCardCode from '../containers/scrBuyCardCode';
+import ScrCashOutWallet from '../containers/scrCashOutWallet';
+import ScrLinkBlockchain from '../containers/scrLinkBlockchain';
+import ScrLuckyWheel from '../containers/scrLuckyWheel';
+import ScrMyBag from '../containers/scrMyBag';
+import ScrNotification from '../containers/scrNotification';
 import ScrPaymentGame from '../containers/scrPaymentGame';
+import ScrPaymentWallet from '../containers/scrPaymentWallet';
+import ScrProfile from '../containers/scrProfile';
+import ScrQRCodeScan from '../containers/scrQRCodeScan';
+import ScrRadarCode from '../containers/scrRadarCode';
+import ScrSellCardCode from '../containers/scrSellCardCode';
+import ScrSetting from '../containers/scrSetting';
+import ScrTranferMoney from '../containers/scrTranferMoney';
 
 export default SwitchNavigator(
   {
@@ -16,11 +29,24 @@ export default SwitchNavigator(
     Main: StackNavigator( {
       MainTab: NavMainTab,
       ScrProfile: ScrProfile,
-      ScrPaymentGame : ScrPaymentGame
+      ScrPaymentWallet : ScrPaymentWallet,
+      ScrCashOutWallet : ScrCashOutWallet,
+      ScrQRCodeScan : ScrQRCodeScan,
+      ScrMyBag : ScrMyBag,
+
+      ScrPaymentGame : ScrPaymentGame,
+      ScrTranferMoney : ScrTranferMoney,
+      ScrBuyCardCode : ScrBuyCardCode,
+      ScrLuckyWheel : ScrLuckyWheel,
+      ScrRadarCode : ScrRadarCode,
+      ScrSellCardCode : ScrSellCardCode,
+      ScrBookHomeStay : ScrBookHomeStay,
+      ScrLinkBlockchain : ScrLinkBlockchain,
+      
     },{
       initialRouteName: 'MainTab',
       mode :'card',
-      headerMode : 'screen'
+      headerMode : 'screen'  
     }) 
   },
   {
