@@ -15,7 +15,7 @@ export class scrHome extends Component {
     static navigationOptions = {
         header :null
     };
-    
+    78
     constructor(props) {
         super(props);
         this.state = { 
@@ -53,7 +53,7 @@ export class scrHome extends Component {
                         </TouchableOpacity>
                     </View>
 
-                    <View style = {{marginHorizontal:15,height : 48,flexDirection:'row',alignItems :'center',justifyContent:'space-between'}}>
+                    <View style = {{borderBottomWidth:1, borderBottomColor:color.white, marginHorizontal:15,height : 48,flexDirection:'row',alignItems :'center',justifyContent:'space-between'}}>
                         <Text style = {{marginLeft: 3, color: color.white, fontSize: 26, fontWeight:'700',
                                         shadowColor: '#1E1E1E',
                                         shadowOffset: { width: 2, height: 2 },

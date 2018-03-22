@@ -1,3 +1,5 @@
+
+
 import React, { Component } from 'react';
 import {View,Text,TouchableOpacity,StyleSheet,Image} from 'react-native';
 // import PropTypes from 'prop-types';
@@ -15,11 +17,11 @@ import {  BallIndicator,
     UIActivityIndicator,
     WaveIndicator, } from 'react-native-indicators';
 
-
 export class scrLoading extends Component {
 
     constructor(props) {
         super(props);
+        
         setTimeout(() => { this.props.navigation.navigate('Auth') }, 2000);
     }
 

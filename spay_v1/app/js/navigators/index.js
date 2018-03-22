@@ -21,8 +21,12 @@ import ScrSellCardCode from '../containers/scrSellCardCode';
 import ScrSetting from '../containers/scrSetting';
 import ScrTranferMoney from '../containers/scrTranferMoney';
 
+//Test cac componet 
+import Test from '../components/boxInput';
+
 export default SwitchNavigator(
   {
+    Test: Test,
     Loading: Loading,
     // Onboarding: NavOnboarding,
     Auth: NavAuth,
@@ -50,6 +54,6 @@ export default SwitchNavigator(
     }) 
   },
   {
-    initialRouteName: 'Main',
+    initialRouteName: 'Test',
   }
 );
