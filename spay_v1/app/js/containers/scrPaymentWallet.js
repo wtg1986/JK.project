@@ -4,6 +4,8 @@ import { color } from '../ultis/theme';
 // import PropTypes from 'prop-types';
 // import { connect } from 'react-redux';
 
+import BoxInput from '../components/boxInput';
+
 export class scrPaymentWallet extends Component {
     static navigationOptions = {
         title : 'NẠP TIỀN VÀO VÍ',
@@ -19,23 +21,23 @@ export class scrPaymentWallet extends Component {
     return (
         <View style ={{
             flex : 1,
-            justifyContent : 'center',
-            alignItems : 'center',
+            justifyContent : 'flex-start',
+            // alignItems : 'center',
             backgroundColor : color.background
         }}>
-          {/* <TouchableOpacity style = {{
-              backgroundColor :'#42689A',
-              borderRadius : 10,
-              padding : 20
-          }}
-              onPress = {()=>{
-                  this.props.navigation.navigate('Tab')
-              }}
-          > */}
-              <Text>
-                  Nạp tiền vào ví bằng nhiều phương thức
-              </Text>
-          {/* </TouchableOpacity> */}
+            <BoxInput
+                header = 'SỐ TIỀN MUỐN NẠP'
+                input = {[
+                    {type : 'default',
+                    default : 'Nhập số tiền',
+                    color : color.primary,
+                    unit : 'VNĐ',
+                    suggest : [{'key':'10,000'},{'key':'20,000'},{'key':'50,000'},{'key':'100,000'},
+                    {'key':'200,000'},{'key':'500,000'},{'key':'1,000,000'},{'key':'5,000,000'},]}
+                ]}
+            >
+            </BoxInput>
+         
         </View>
     )
   };
