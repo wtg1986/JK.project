@@ -15,7 +15,7 @@ import {color} from '../../ultis/theme';
 export default class scrLogin extends Component {
     constructor(props) {
         super(props);
-        // this.state = { txtMobile: 'Nhập vào số điện thoại' };
+        this.state = { txtMobile: 'Nhập vào số điện thoại' };
         }
   render() {
     return (

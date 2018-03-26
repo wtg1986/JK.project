@@ -103,6 +103,7 @@ const style = StyleSheet.create(
 
         label : {
             marginTop: 3,
+            fontSize: 13,
             width : 80,
             textAlign : 'center',
         },

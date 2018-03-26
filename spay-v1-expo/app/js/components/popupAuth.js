@@ -46,15 +46,15 @@ export default class popupAuth extends Component {
                     this.props.enumInputType === 'TEXT' ?
                         <TextInput
                             style = {style.txtInput}
-                            // onChangeText={(input) => this.setState({input})}
-                            // value={this.state.inputValue}
+                            onChangeText={input => this.setState({input})}
+                            value={this.state.inputValue}
                             keyboardType='numeric'
                             autoFocus = {this.props.autoFocus}
                             // placeholder = {this.props.txtInputDefault}
                             clearTextOnFocus={false}
                             // defaultValue ='Khanh'
                             enablesReturnKeyAutomatically={true}
-                            // selectTextOnFocus={true}
+                            selectTextOnFocus={true}
                         /> : 
                     ( this.props.enumInputType === 'PIN_CODE' ?
                         <InputPincode numberCount = {6} />

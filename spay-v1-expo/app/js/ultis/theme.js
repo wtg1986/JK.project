@@ -8,5 +8,6 @@ export const color = {
     textDark : '#606060',
     background : '#eef3f5',
     box : '#fff',
-    white : '#fff'
+    white : '#fff',
+    test : '#DDDDDD'
 }

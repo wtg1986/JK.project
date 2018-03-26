@@ -5,6 +5,9 @@ import { color } from '../ultis/theme';
 // import { connect } from 'react-redux';
 
 import BoxInput from '../components/boxInput';
+import ElementSelect from '../components/elementSelect';
+
+// import s from '../../assets/icons';
 
 export class scrPaymentWallet extends Component {
     static navigationOptions = {
@@ -17,7 +20,8 @@ export class scrPaymentWallet extends Component {
 //     prop: PropTypes
 //   };
 
-  render() {
+render() {
+
     return (
         <View style ={{
             flex : 1,
@@ -25,19 +29,44 @@ export class scrPaymentWallet extends Component {
             // alignItems : 'center',
             backgroundColor : color.background
         }}>
-            <BoxInput
-                header = 'SỐ TIỀN MUỐN NẠP'
+
+            {/* <BoxInput
+                header = 'THÔNG TIN CHUYỂN KHOẢN'
                 input = {[
-                    {type : 'default',
+                    {key : 'Mobile',
+                    type : 'default',
+                    default : 'Nhập số điện thoại',
+                    color : color.primary,
+                    suggest : [{'key':'097.365.1368'},{'key':'096.843.4969'},{'key':'091.272.2282'},]},
+
+                    {key : 'Money',
+                    type : 'default',
                     default : 'Nhập số tiền',
                     color : color.primary,
                     unit : 'VNĐ',
                     suggest : [{'key':'10,000'},{'key':'20,000'},{'key':'50,000'},{'key':'100,000'},
-                    {'key':'200,000'},{'key':'500,000'},{'key':'1,000,000'},{'key':'5,000,000'},]}
+                    {'key':'200,000'},{'key':'500,000'},{'key':'1,000,000'},{'key':'5,000,000'},]},
+                    ]}
+                onEndEditing = {(res)=>{
+                    
+                }} 
+                onFocus = {(obj)=>{
+          
+                }}
+            >
+            </BoxInput> */}
+
+            <BoxInput
+                header = 'SỐ TIỀN MUỐN NẠP'
+                input = {[
+                    {key : 'Money',
+                    type : 'numbers-and-punctuation',
+                    default : 'Nhập số tiền',
+                    color : color.primary,}
                 ]}
             >
             </BoxInput>
-         
+
         </View>
     )
   };

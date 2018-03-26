@@ -4,6 +4,8 @@ import {
     Text,
     View,
     TextInput,
+    Keyboard,
+    TouchableOpacity,
     KeyboardAvoidingView,
     Dimensions,
     Animated,
@@ -16,8 +18,6 @@ import PropTypes from 'prop-types';
 import {color} from '../ultis/theme';
 import Button from '../components/button';
 import SelectBarSuggest from '../components/selectBarSuggest';
-import ElementSelect  from '../components/elementSelect';
-import Tmp from '../components/_tmp';
 
 export default class boxInput extends Component {
 
@@ -131,7 +131,7 @@ export default class boxInput extends Component {
                         this.setState({...this.state, value:newValue})
                     }}
                 />}
-
+               
             </View>
         )
     }
@@ -146,30 +146,6 @@ export default class boxInput extends Component {
                 <Text style = {style.header}> {this.props.header} </Text>
                 
                 { input.map((oj,i)=> this._renderTextInput(oj,i))}
-
-                <ElementSelect
-                    image = {require('../../assets/icons/imgTapKich.png')}
-                    imageSize = {{h:44,w:44}}
-                    title = 'Tập Kích'
-                    description = 'Nới bản lĩnh được khảng định'
-                    tintColor = {color.primary}
-                    isSelect = {true}
-                />
-
-                 <ElementSelect
-                    image = {require('../../assets/icons/imgBidaDo.png')}
-                    imageSize = {{h:44,w:44}}
-                    title = 'Bida Đỏ'
-                    description = 'Chọc là đỏ...'
-                    tintColor = {color.primary}
-                />
-
-
-               
-                {/* <Tmp>
-                    <Text> Tran Duy Khanh</Text>
-                </Tmp> */}
-
 
             </View>)
     };
