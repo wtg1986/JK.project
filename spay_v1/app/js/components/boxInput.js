@@ -106,7 +106,7 @@ export default class boxInput extends Component {
                         value = {this.state.value[i]}
                         keyboardType = {inp.type ? inp.type : 'default'}
                         placeholder = {inp.default}
-                        clearTextOnFocus = {false}
+                        // clearTextOnFocus = {false}
                         enablesReturnKeyAutomatically = {true}
                         selectTextOnFocus = {true}
                     /> 
@@ -138,40 +138,12 @@ export default class boxInput extends Component {
     }
 
     render() {
-    
         const input = this.props.input;
-
         return (
             <View style = {style.root}>
-
                 <Text style = {style.header}> {this.props.header} </Text>
-                
-                { input.map((oj,i)=> this._renderTextInput(oj,i))}
-
-                <ElementSelect
-                    image = {require('../../assets/icons/imgTapKich.png')}
-                    imageSize = {{h:44,w:44}}
-                    title = 'Tập Kích'
-                    description = 'Nới bản lĩnh được khảng định'
-                    tintColor = {color.primary}
-                    isSelect = {true}
-                />
-
-                 <ElementSelect
-                    image = {require('../../assets/icons/imgBidaDo.png')}
-                    imageSize = {{h:44,w:44}}
-                    title = 'Bida Đỏ'
-                    description = 'Chọc là đỏ...'
-                    tintColor = {color.primary}
-                />
-
-
-               
-                {/* <Tmp>
-                    <Text> Tran Duy Khanh</Text>
-                </Tmp> */}
-
-
+                {input.map((oj,i)=> this._renderTextInput(oj,i))}
+                {this.props.children}
             </View>)
     };
 };
@@ -186,9 +158,9 @@ const style = StyleSheet.create(
         backgroundColor : color.box,
         borderRadius: 10,
         shadowColor: '#929292',
-        shadowOffset: { width: 1, height: 1 },
-        shadowRadius: 3,
-        shadowOpacity: .6,
+        shadowOffset: { width: .6, height: .6 },
+        shadowRadius: 2.5,
+        shadowOpacity: .4,
     },
     header : {
         alignSelf:'center',

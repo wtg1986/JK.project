@@ -88,9 +88,9 @@ const style = StyleSheet.create(
             justifyContent : 'center',
             alignItems: 'center',
             shadowColor: '#929292',
-            shadowOffset: { width: 1, height: 1 },
+            shadowOffset: { width: .6, height: .6 },
             shadowRadius: 2.5,
-            shadowOpacity: .3,
+            shadowOpacity: .4,
         },
 
         badge : {

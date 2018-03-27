@@ -11,8 +11,9 @@ export default class selectBarSuggest extends Component {
         top : PropTypes.number,
         left : PropTypes.number,
         right : PropTypes.number,
-        onSelect : PropTypes.func
+        onSelect : PropTypes.func,
     };    
+    
     constructor(props) {
         super(props);
         

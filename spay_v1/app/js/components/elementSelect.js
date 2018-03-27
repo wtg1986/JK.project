@@ -1,6 +1,4 @@
 
-
-
 import {StyleSheet, Text, View, Image} from 'react-native';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -15,6 +13,7 @@ export default class elementSelect extends Component {
         tintColor : PropTypes.string,
         isSelect : PropTypes.bool
     };    
+    
     constructor(props) {
         super(props);
         // this.state = { 
@@ -25,7 +24,8 @@ export default class elementSelect extends Component {
         return (
             <View style = {[style.root,{
                             backgroundColor : this.props.isSelect ? color.primary : color.box,
-                            borderWidth : this.props.isSelect ? 0 : 1}]}>
+                            borderColor : this.props.isSelect ? color.primary : color.shadow,
+                            }]}>
                 <Image  style = {[style.image, {height : this.props.imageSize.h,width : this.props.imageSize.w,}]} 
                         source = {this.props.image}/>
 
