@@ -32,6 +32,7 @@ export default class boxInput extends Component {
         // color : Màu TextInput
         // unit : Thành phần đơn vị của ô nhập
         // suggest : Dãy text gợi ý cho người nhập
+        
     };    
 
     constructor(props) {
