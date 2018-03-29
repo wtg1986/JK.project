@@ -11,10 +11,12 @@ export default class selectBarSuggest extends Component {
         top : PropTypes.number,
         left : PropTypes.number,
         right : PropTypes.number,
-        onSelect : PropTypes.func
+        onSelect : PropTypes.func,
     };    
+    
     constructor(props) {
         super(props);
+        
         // this.state = { 
         // };
     }
@@ -46,7 +48,6 @@ export default class selectBarSuggest extends Component {
             //     </View>
             
             // </Modal>
-
             <Animated.View 
                 key = {this.props.index}
                 style = {[ style.root , {

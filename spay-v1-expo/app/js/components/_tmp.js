@@ -16,9 +16,9 @@ export default class name extends Component {
 
   render() {
     return (
-    <View style = {style.popup}>
-                    
-        </View>
+      <View style = {style.popup}>
+           {this.props.children}         
+      </View>
     )
   };
 };

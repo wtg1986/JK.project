@@ -6,7 +6,7 @@ import {color} from '../ultis/theme';
 
 export default class girdGroup extends Component {
     static propTypes = {
-        columns : PropTypes.number,
+        columnCount : PropTypes.number,
         // rowCount : PropTypes.number,
         elementMargin: PropTypes.number
     };    
@@ -15,16 +15,16 @@ export default class girdGroup extends Component {
         // this.state = { 
         // };
     }
-    
+
     render() {
         let childs = []
         Children.map(this.props.children, (child,index) => {childs[index]=child})
-        let row = Array(Math.floor(childs.length / this.props.columns) + 1).fill(0)
-        let col = Array(this.props.columns).fill(0)
+        let row = Array(Math.floor(childs.length / this.props.columnCount) + 1).fill(0)
+        let col = Array(this.props.columnCount).fill(0)
         
         let ij = 0
         return (
-            <View style = {[this.props.style,{flexDirection: 'column',}]}>
+            <View style = {style.col}>
                 {
                 row.map((oj,i) => 
                     <View key ={i} style ={[style.row, {marginVertical : this.props.elementMargin}]}>
@@ -44,12 +44,15 @@ const style = StyleSheet.create(
     {
         row : { 
             // backgroundColor : color.textGray,
-            // justifyContent: 'flex-start',
-            justifyContent: 'space-between',
+            justifyContent: 'flex-start',
             flexDirection: 'row',
-            // flex : 1
         },
-        
+        col : {
+            // backgroundColor : color.textGray,
+            justifyContent: 'flex-start',
+            flexDirection: 'column',
+            // marginHorizontal: 15
+        },
         element : {
             // backgroundColor : color.test,
             alignItems: 'center',

@@ -1,12 +1,5 @@
 
-import {
-    StyleSheet, 
-    Text,
-    View,
-    TouchableHighlight,
-    TouchableWithoutFeedback,
-    Keyboard
-} from 'react-native';
+import {StyleSheet, Text,View,TouchableHighlight,TouchableWithoutFeedback} from 'react-native';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {color} from '../ultis/theme';
@@ -64,7 +57,6 @@ export default class boxSelect extends Component {
                                     this.state.selected.splice(index, 1)
                                 }
                             }
-                            Keyboard.dismiss()
                             this.props.onSelect&&
                             this.props.onSelect(inp.key,this.state.selected)
                         })

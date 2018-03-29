@@ -52,6 +52,7 @@ const scrLoadingStyle = StyleSheet.create(
     },
     body : {
       flex: 1,
+      alignItems: 'center',
       flexDirection: 'row',
       justifyContent: 'center',
       backgroundColor : color.background

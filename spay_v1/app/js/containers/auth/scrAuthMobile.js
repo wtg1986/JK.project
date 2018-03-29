@@ -11,6 +11,7 @@ import {
 import PropTypes from 'prop-types';
 import PopupAuth from '../../components/popupAuth'
 import {color} from '../../ultis/theme';
+import {logoSpay,logoVTC} from '../../../assets';
 
 export default class scrLogin extends Component {
     constructor(props) {
@@ -22,7 +23,7 @@ export default class scrLogin extends Component {
       <View style = {scrLoadingStyle.root}>
             <View style = {scrLoadingStyle.body}>
                 <PopupAuth
-                    imgLogo = {require('../../../assets/logos/logoSpay.png')} 
+                    imgLogo = {logoSpay} 
                     txtNotification = 'Nhập số điện thoại để tiếp tục'
                     txtButon = 'TIẾP TỤC'
                     enumInputType = 'TEXT'
@@ -37,7 +38,7 @@ export default class scrLogin extends Component {
           <View style = {scrLoadingStyle.bottom}>
             <Image 
                 style={scrLoadingStyle.imgLogoVTC} 
-                source={require('../../../assets/logos/logoVTC.png')}
+                source={logoVTC}
               />
           </View>
       </View>

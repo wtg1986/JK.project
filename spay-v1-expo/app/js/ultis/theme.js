@@ -9,5 +9,6 @@ export const color = {
     background : '#eef3f5',
     box : '#fff',
     white : '#fff',
+    shadow : '#E8E8E8',
     test : '#DDDDDD'
 }

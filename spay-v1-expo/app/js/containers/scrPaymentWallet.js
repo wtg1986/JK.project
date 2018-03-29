@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
-import {View,TouchableOpacity,Text} from 'react-native';
+import {View,TouchableOpacity,Text, ScrollView} from 'react-native';
 import { color } from '../ultis/theme';
 // import PropTypes from 'prop-types';
 // import { connect } from 'react-redux';
 
 import BoxInput from '../components/boxInput';
+import BoxSelect from '../components/boxSelect';
+import Gird from '../components/girdGroup';
+import BoxGamePurchase from '../components/boxGamePurchase';
+import PopupAuth from '../components/popupAuth';
+// import s from '../../assets/logos';
+
 
 export class scrPaymentWallet extends Component {
     static navigationOptions = {
@@ -18,8 +24,9 @@ export class scrPaymentWallet extends Component {
 //   };
 
 render() {
-
+    
     return (
+        <ScrollView keyboardShouldPersistTaps ='always'>
         <View style ={{
             flex : 1,
             justifyContent : 'flex-start',
@@ -27,6 +34,16 @@ render() {
             backgroundColor : color.background
         }}>
 
+            <PopupAuth
+                imgLogo = {require('../../assets/logos/logoSpay.png')} 
+                txtNotification = 'Nhập mã xác thực số điện thoại'
+                txtButon = 'TIẾP TỤC'
+                enumInputType = 'PIN_CODE'
+                autoFocus = {true}
+                onAction = {()=>{
+                    this.props.navigation.navigate('ScrRadarCode')
+                }}/>
+            
             <BoxInput
                 header = 'THÔNG TIN CHUYỂN KHOẢN'
                 input = {[
@@ -47,12 +64,12 @@ render() {
                 onEndEditing = {(res)=>{
                     
                 }} 
+
                 onFocus = {(obj)=>{
           
                 }}
-            >
-            </BoxInput>
-
+            />
+            
             <BoxInput
                 header = 'SỐ TIỀN MUỐN NẠP'
                 input = {[
@@ -61,10 +78,39 @@ render() {
                     default : 'Nhập số tiền',
                     color : color.primary,}
                 ]}
-            >
-            </BoxInput>
-                
+            />
+            
+            <BoxSelect
+                header = 'CHỌN GAME'
+                input = {[
+                    {key: 'Game_BidaDo',
+                    image: require ('../../assets/icons/imgBidaDo.png'),
+                    imageSize: {h:44,w:44},
+                    title: 'Bida Đỏ',
+                    description: 'Chọc là đỏ'},
+
+                    {key: 'Game_TapKich',
+                    image: require ('../../assets/icons/imgTapKich.png'),
+                    imageSize: {h:44,w:44},
+                    title: 'Tập Kích',
+                    description: 'Nơi khảng định bản lĩnh'},
+
+                    {key: 'Game_AuMobile',
+                    image: require ('../../assets/icons/imgAuMobile.png'),
+                    imageSize: {h:44,w:44},
+                    title: 'Au Mobile',
+                    description: 'Thời trang sang chảnh'},
+
+                ]}
+                multiSelect = {false}
+                onSelect = {(selectItem) => {
+                    // alert (selectItem)
+                }}
+            />
+            <BoxGamePurchase/>
+
         </View>
+        </ScrollView>
     )
   };
 };

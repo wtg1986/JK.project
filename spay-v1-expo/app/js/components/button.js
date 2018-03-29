@@ -16,8 +16,9 @@ export default class button extends Component {
         shadow : PropTypes.bool,
         onPress : PropTypes.func,
         top : PropTypes.number,
-        left : PropTypes.number
+        left : PropTypes.number,
     }; 
+    
 
     static defaultProps = {
         fontSize : 15,

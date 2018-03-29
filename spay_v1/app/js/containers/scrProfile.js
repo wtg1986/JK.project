@@ -3,7 +3,7 @@ import {View,TouchableOpacity,Text} from 'react-native';
 import { color} from '../ultis/theme';
 // import PropTypes from 'prop-types';
 // import { connect } from 'react-redux';
-
+import BoxInput from '../components/boxInput';
 export class scrProfile extends Component {
     static navigationOptions = {
         title : 'THÔNG TIN TÀI KHOẢN',
@@ -15,31 +15,26 @@ export class scrProfile extends Component {
 //     prop: PropTypes
 //   };
 
-  render() {
-    return (
-        <View style ={{
-            flex : 1,
-            justifyContent : 'center',
-            alignItems : 'center',
+    render() {
+        return (
+            <View style ={{
+                flex : 1,
+                backgroundColor : color.background
+            }}>
+                <BoxInput
+                    header = ''
+                    input = {[
+                        {key : 'Money',
+                        type : 'default',
+                        default : 'Nhập số tiền',
+                        color : color.primary,
+                        },
+                    ]}
+                />
             
-            backgroundColor : color.background
-        }}>
-          {/* <TouchableOpacity style = {{
-              backgroundColor :'#42689A',
-              borderRadius : 10,
-              padding : 20
-          }}
-              onPress = {()=>{
-                  this.props.navigation.navigate('Tab')
-              }}
-          > */}
-              <Text>
-                  Thông tin tài khoản ví
-              </Text>
-          {/* </TouchableOpacity> */}
-        </View>
-    )
-  };
+            </View>
+        )
+    };
 };
 
 // const mapStateToProps = (state) => ({

@@ -1,11 +1,10 @@
-
 import {
     StyleSheet, 
     Text,
     View,
     TextInput,
     KeyboardAvoidingView,
-    Dimensions,
+    // Dimensions,
     Animated,
     FlatList,
     Easing,
@@ -17,7 +16,6 @@ import {color} from '../ultis/theme';
 import Button from '../components/button';
 import SelectBarSuggest from '../components/selectBarSuggest';
 import ElementSelect  from '../components/elementSelect';
-import Tmp from '../components/_tmp';
 
 export default class boxInput extends Component {
 
@@ -32,14 +30,13 @@ export default class boxInput extends Component {
         // color : Màu TextInput
         // unit : Thành phần đơn vị của ô nhập
         // suggest : Dãy text gợi ý cho người nhập
-        
     };    
 
     constructor(props) {
         super(props);
-        let {height, width} = Dimensions.get('window');
+        // let {height, width} = Dimensions.get('window');
         this.textInputComponent = [];
-        this.keyboardHeight = height;
+        // this.keyboardHeight = height;
         this.state = { 
             focusIndex : -1,
             value : Array(this.props.input.length).fill(''),
@@ -50,7 +47,7 @@ export default class boxInput extends Component {
     _onEndEditing = () => {
         let e = { key: this.props.input[this.state.focusIndex].key, 
                 value: this.state.value[this.state.focusIndex]} 
-        console.log(e)
+        // console.log(e)
         this.props.onEndEditing && this.props.onEndEditing(e)
     }
 
@@ -80,7 +77,7 @@ export default class boxInput extends Component {
                                     easing: Easing.easeOutElastic,
                                     duration: 200,
                                     toValue: 0
-                            }).start(()=>this.setState({...this.state, focusIndex:i},()=>{
+                            }).start(() => this.setState({...this.state, focusIndex:i},()=>{
                                 Animated.timing(this.state.heightSuggetBar, 
                                     {
                                         easing: Easing.easeOutElastic,
@@ -93,10 +90,14 @@ export default class boxInput extends Component {
                             this._onEndEditing()
                             Animated.timing(this.state.heightSuggetBar, 
                             {
-                                    easing: Easing.easeOutElastic,
-                                    duration: 200,
-                                    toValue: 0
-                            }).start()
+                                easing: Easing.easeOutElastic,
+                                duration: 200,
+                                toValue: 0
+                            }).start(() => {
+                                // this.setState (oldState => {
+                                //     return {...this.state, focusIndex:0}
+                                // })
+                            } ) 
                         }} 
 
                         onSubmitEditing = {() => {

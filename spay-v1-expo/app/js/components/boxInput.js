@@ -4,8 +4,6 @@ import {
     Text,
     View,
     TextInput,
-    Keyboard,
-    TouchableOpacity,
     KeyboardAvoidingView,
     Dimensions,
     Animated,
@@ -18,6 +16,8 @@ import PropTypes from 'prop-types';
 import {color} from '../ultis/theme';
 import Button from '../components/button';
 import SelectBarSuggest from '../components/selectBarSuggest';
+import ElementSelect  from '../components/elementSelect';
+import Tmp from '../components/_tmp';
 
 export default class boxInput extends Component {
 
@@ -32,6 +32,7 @@ export default class boxInput extends Component {
         // color : Màu TextInput
         // unit : Thành phần đơn vị của ô nhập
         // suggest : Dãy text gợi ý cho người nhập
+        
     };    
 
     constructor(props) {
@@ -105,7 +106,7 @@ export default class boxInput extends Component {
                         value = {this.state.value[i]}
                         keyboardType = {inp.type ? inp.type : 'default'}
                         placeholder = {inp.default}
-                        clearTextOnFocus = {false}
+                        // clearTextOnFocus = {false}
                         enablesReturnKeyAutomatically = {true}
                         selectTextOnFocus = {true}
                     /> 
@@ -131,22 +132,18 @@ export default class boxInput extends Component {
                         this.setState({...this.state, value:newValue})
                     }}
                 />}
-               
+
             </View>
         )
     }
 
     render() {
-    
         const input = this.props.input;
-
         return (
             <View style = {style.root}>
-
                 <Text style = {style.header}> {this.props.header} </Text>
-                
-                { input.map((oj,i)=> this._renderTextInput(oj,i))}
-
+                {input.map((oj,i)=> this._renderTextInput(oj,i))}
+                {this.props.children}
             </View>)
     };
 };
@@ -161,9 +158,9 @@ const style = StyleSheet.create(
         backgroundColor : color.box,
         borderRadius: 10,
         shadowColor: '#929292',
-        shadowOffset: { width: 1, height: 1 },
-        shadowRadius: 3,
-        shadowOpacity: .6,
+        shadowOffset: { width: .6, height: .6 },
+        shadowRadius: 2.5,
+        shadowOpacity: .4,
     },
     header : {
         alignSelf:'center',

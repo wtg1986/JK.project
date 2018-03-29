@@ -9,7 +9,7 @@ import BoxSelect from '../components/boxSelect';
 import Gird from '../components/girdGroup';
 import BoxGamePurchase from '../components/boxGamePurchase';
 import PopupAuth from '../components/popupAuth';
-// import s from '../../assets/logos';
+import {imgATM} from '../../assets';
 
 
 export class scrPaymentWallet extends Component {
@@ -34,7 +34,7 @@ render() {
             backgroundColor : color.background
         }}>
 
-            <PopupAuth
+            {/* <PopupAuth
                 imgLogo = {require('../../assets/logos/logoSpay.png')} 
                 txtNotification = 'Nhập mã xác thực số điện thoại'
                 txtButon = 'TIẾP TỤC'
@@ -44,17 +44,11 @@ render() {
                     this.props.navigation.navigate('ScrRadarCode')
                 }}
             >
-            </PopupAuth>
+            </PopupAuth> */}
 
             <BoxInput
-                header = 'THÔNG TIN CHUYỂN KHOẢN'
+                header = 'SỐ TIỀN MUỐN NẠP'
                 input = {[
-                    {key : 'Mobile',
-                    type : 'default',
-                    default : 'Nhập số điện thoại',
-                    color : color.primary,
-                    suggest : [{'key':'097.365.1368'},{'key':'096.843.4969'},{'key':'091.272.2282'},]},
-
                     {key : 'Money',
                     type : 'default',
                     default : 'Nhập số tiền',
@@ -62,46 +56,29 @@ render() {
                     unit : 'VNĐ',
                     suggest : [{'key':'10,000'},{'key':'20,000'},{'key':'50,000'},{'key':'100,000'},
                     {'key':'200,000'},{'key':'500,000'},{'key':'1,000,000'},{'key':'5,000,000'},]},
-                    ]}
-                onEndEditing = {(res)=>{
-                    
-                }} 
-
-                onFocus = {(obj)=>{
-          
-                }}
-            />
-            
-            <BoxInput
-                header = 'SỐ TIỀN MUỐN NẠP'
-                input = {[
-                    {key : 'Money',
-                    type : 'numbers-and-punctuation',
-                    default : 'Nhập số tiền',
-                    color : color.primary,}
                 ]}
             />
             
             <BoxSelect
-                header = 'CHỌN GAME'
+                header = 'CHỌN HÌNH THỨC NẠP'
                 input = {[
-                    {key: 'Game_BidaDo',
-                    image: require ('../../assets/icons/imgBidaDo.png'),
+                    {key: 'ATMBank',
+                    image: imgATM,
                     imageSize: {h:44,w:44},
-                    title: 'Bida Đỏ',
-                    description: 'Chọc là đỏ'},
+                    title: 'Thẻ ATM Ngân Hàng Nội Địa',
+                    description: 'Thu phí 0%'},
 
-                    {key: 'Game_TapKich',
-                    image: require ('../../assets/icons/imgTapKich.png'),
+                    {key: 'VisaBank',
+                    image: imgATM,
                     imageSize: {h:44,w:44},
-                    title: 'Tập Kích',
-                    description: 'Nơi khảng định bản lĩnh'},
+                    title: 'Thẻ Visa - Master - JCB',
+                    description: 'Thu phí 3%'},
 
-                    {key: 'Game_AuMobile',
-                    image: require ('../../assets/icons/imgAuMobile.png'),
+                    {key: 'DaiLySpay',
+                    image: imgATM,
                     imageSize: {h:44,w:44},
-                    title: 'Au Mobile',
-                    description: 'Thời trang sang chảnh'},
+                    title: 'Đại Lý SPAY',
+                    description: 'Chiết khấu 5%'},
 
                 ]}
                 multiSelect = {false}
@@ -109,7 +86,6 @@ render() {
                     // alert (selectItem)
                 }}
             />
-            <BoxGamePurchase/>>
 
         </View>
         </ScrollView>
