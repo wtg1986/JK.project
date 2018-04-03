@@ -1,5 +1,6 @@
 export const color = {
     primary : '#ff9800', //'#FFA833',
+    secondary : '#00CFC0',
     warning : '#f44336',
     // danger = '#f44336',
     // success = '#4caf50',
@@ -11,4 +12,5 @@ export const color = {
     white : '#fff',
     shadow : '#E8E8E8',
     test : '#DDDDDD'
+
 }

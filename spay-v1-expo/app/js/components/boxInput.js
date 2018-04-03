@@ -1,11 +1,10 @@
-
 import {
     StyleSheet, 
     Text,
     View,
     TextInput,
     KeyboardAvoidingView,
-    Dimensions,
+    // Dimensions,
     Animated,
     FlatList,
     Easing,
@@ -17,7 +16,6 @@ import {color} from '../ultis/theme';
 import Button from '../components/button';
 import SelectBarSuggest from '../components/selectBarSuggest';
 import ElementSelect  from '../components/elementSelect';
-import Tmp from '../components/_tmp';
 
 export default class boxInput extends Component {
 
@@ -25,21 +23,25 @@ export default class boxInput extends Component {
         header : PropTypes.string,
         input : PropTypes.array, // [{key,type,default,color,unit,suggest},...]  
         onFocus : PropTypes.func,
-        onEndEditing : PropTypes.func
+        onEndEditing : PropTypes.func,
+        hasBox : PropTypes.bool
         // key : khóa cho data input 
         // type : Kiểu bàn phím
         // default : Text hướng dẫn nhập
         // color : Màu TextInput
         // unit : Thành phần đơn vị của ô nhập
         // suggest : Dãy text gợi ý cho người nhập
-        
-    };    
+    };
+
+    static defaultProps = {
+        hasBox : true
+    }
 
     constructor(props) {
         super(props);
-        let {height, width} = Dimensions.get('window');
+        // let {height, width} = Dimensions.get('window');
         this.textInputComponent = [];
-        this.keyboardHeight = height;
+        // this.keyboardHeight = height;
         this.state = { 
             focusIndex : -1,
             value : Array(this.props.input.length).fill(''),
@@ -50,7 +52,7 @@ export default class boxInput extends Component {
     _onEndEditing = () => {
         let e = { key: this.props.input[this.state.focusIndex].key, 
                 value: this.state.value[this.state.focusIndex]} 
-        console.log(e)
+        // console.log(e)
         this.props.onEndEditing && this.props.onEndEditing(e)
     }
 
@@ -67,7 +69,7 @@ export default class boxInput extends Component {
                     {/* TextInput */}
                     <TextInput 
                         ref = {me => this.textInputComponent[i] = me}
-                        style = {[style.txtInput, {color:inp.color}]}
+                        style = {[style.txtInput, {borderColor:inp.color, color:inp.color}]}
                         onChangeText = {input => {
                             let [ ...newValue ] = this.state.value;
                             newValue[i] = input;
@@ -80,7 +82,7 @@ export default class boxInput extends Component {
                                     easing: Easing.easeOutElastic,
                                     duration: 200,
                                     toValue: 0
-                            }).start(()=>this.setState({...this.state, focusIndex:i},()=>{
+                            }).start(() => this.setState({...this.state, focusIndex:i},()=>{
                                 Animated.timing(this.state.heightSuggetBar, 
                                     {
                                         easing: Easing.easeOutElastic,
@@ -93,10 +95,14 @@ export default class boxInput extends Component {
                             this._onEndEditing()
                             Animated.timing(this.state.heightSuggetBar, 
                             {
-                                    easing: Easing.easeOutElastic,
-                                    duration: 200,
-                                    toValue: 0
-                            }).start()
+                                easing: Easing.easeOutElastic,
+                                duration: 200,
+                                toValue: 0
+                            }).start(() => {
+                                // this.setState (oldState => {
+                                //     return {...this.state, focusIndex:0}
+                                // })
+                            } ) 
                         }} 
 
                         onSubmitEditing = {() => {
@@ -140,8 +146,8 @@ export default class boxInput extends Component {
     render() {
         const input = this.props.input;
         return (
-            <View style = {style.root}>
-                <Text style = {style.header}> {this.props.header} </Text>
+            <View style = {this.props.hasBox ? style.root : null}>
+                {this.props.header ? <Text style = {style.header}> {this.props.header} </Text> : null}
                 {input.map((oj,i)=> this._renderTextInput(oj,i))}
                 {this.props.children}
             </View>)
@@ -152,7 +158,6 @@ const style = StyleSheet.create(
   {
     root : {
         marginTop: 15,
-        marginHorizontal: 15,
         paddingVertical: 20,
         justifyContent :'flex-start',
         backgroundColor : color.box,

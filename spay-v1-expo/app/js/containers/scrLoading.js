@@ -6,6 +6,7 @@ import {View,Text,TouchableOpacity,StyleSheet,Image} from 'react-native';
 // import { connect } from 'react-redux';
 
 import { color } from '../ultis/theme';
+import {logoSpay,logoVTC} from '../../assets';
 
 import {  BallIndicator,
     BarIndicator,
@@ -16,6 +17,7 @@ import {  BallIndicator,
     SkypeIndicator,
     UIActivityIndicator,
     WaveIndicator, } from 'react-native-indicators';
+
 
 export class scrLoading extends Component {
 
@@ -31,7 +33,7 @@ export class scrLoading extends Component {
         <View style = {scrLoadingStyle.body}>
             <Image 
                 style={scrLoadingStyle.imgLogoSpay} 
-                source={require('../../assets/logos/logoSpay.png')}
+                source={logoSpay}
             />
             <Text style = {scrLoadingStyle.textLogoSpay} > AN TOÀN - TIỆN DỤNG </Text>
             <View style = {{marginTop:50}}>
@@ -42,7 +44,7 @@ export class scrLoading extends Component {
         <View style = {scrLoadingStyle.bottom}>
             <Image 
                 style={scrLoadingStyle.imgLogoVTC} 
-                source={require('../../assets/logos/logoVTC.png')}
+                source={logoVTC}
             />
         </View>
     </View>

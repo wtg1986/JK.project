@@ -4,6 +4,8 @@ var _findIndex = require('lodash/findIndex') // npm install lodash --save
 var server = require('http').Server(app);
 var port = (process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 6969);
 var io = require('socket.io')(server);
+var path = require('path');
+
 server.listen(port, () => console.log('Server running in port ' + port));
 
 var userOnline = []; //danh sách user dang online
@@ -53,3 +55,12 @@ io.on('connection', function(socket) {
 app.get('/', (req, res) => {
     res.send("Home page. Server running okay.");
 })
+
+
+app.use(express.static('public'));
+
+//Serves all the request which includes /images in the url from Images folder
+// app.use('/png', express.static(path.join(__dirname + '/pngs')));
+// app.use('/svg', express.static(__dirname + '/svgs'));
+
+var server = app.listen(5000, () => console.log('Server Resource running in port 5000'));

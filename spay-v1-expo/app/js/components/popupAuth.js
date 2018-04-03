@@ -130,8 +130,8 @@ const style = StyleSheet.create(
     btnTiepTuc:{
         justifyContent : 'center',
         height : 50,
-        marginHorizontal: 25,
-        // alignSelf: 'center',
+        width : 300,
+        alignSelf: 'center',
         // marginBottom: 25,
         backgroundColor : color.primary,
         borderRadius: 25,

@@ -123,7 +123,7 @@ export class scrHome extends Component {
                 iconLabelColor = {color.textDark}
                 badgeColor = {{background : color.warning, text : color.white}}
                 onPress = {[
-                    ()=>{this.props.navigation.navigate('ScrPaymentWallet')},
+                    ()=>{this.props.navigation.navigate('ScrPaymentWalletAgency')},
                     ()=>{this.props.navigation.navigate('ScrCashOutWallet')},
                     ()=>{this.props.navigation.navigate('ScrQRCodeScan')},
                     ()=>{this.props.navigation.navigate('ScrMyBag')},

@@ -37,7 +37,7 @@ export default class button extends Component {
     render() {
         let {text,height,width,backgroundColor,textColor,fontSize,top,left} = this.props;
         return (
-            <TouchableOpacity onPress = { () => {this.props.onPress()} } >
+            <TouchableOpacity onPress ={ () => {this.props.onPress&&this.props.onPress()} } >
                 <View style = {[style.root,{
                     height: height,
                     backgroundColor: backgroundColor,

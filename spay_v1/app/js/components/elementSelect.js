@@ -65,7 +65,7 @@ const style = StyleSheet.create(
         },
         image : { 
             borderWidth : 1,
-            borderRadius : 10,
+            borderRadius : 9,
             borderColor : color.shadow
         },
         title : { 

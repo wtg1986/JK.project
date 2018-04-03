@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {View,Text} from 'react-native';
 import { color } from '../ultis/theme';
+import BoxSelect from '../components/boxSelect';
+import BoxInput from '../components/boxInput';
 // import PropTypes from 'prop-types';
 // import { connect } from 'react-redux';
 
@@ -18,7 +20,7 @@ export class scrBookHomeStay extends Component {
             <View style ={{
                 flex : 1,
                 justifyContent : 'center',
-                alignItems : 'center',
+                // alignItems : 'center',
                 backgroundColor : color.background
             }}>
                 <Text>

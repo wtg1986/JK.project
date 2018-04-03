@@ -9,7 +9,7 @@ import BoxSelect from '../components/boxSelect';
 import Gird from '../components/girdGroup';
 import BoxGamePurchase from '../components/boxGamePurchase';
 import PopupAuth from '../components/popupAuth';
-import {imgATM} from '../../assets';
+import * as Assets from '../../assets';
 
 
 export class scrPaymentWallet extends Component {
@@ -63,20 +63,20 @@ render() {
                 header = 'CHỌN HÌNH THỨC NẠP'
                 input = {[
                     {key: 'ATMBank',
-                    image: imgATM,
-                    imageSize: {h:44,w:44},
-                    title: 'Thẻ ATM Ngân Hàng Nội Địa',
+                    image: Assets.imgATM,
+                    imageSize: {h:50,w:50},
+                    title: 'Thẻ Ngân Hàng Nội Địa',
                     description: 'Thu phí 0%'},
 
                     {key: 'VisaBank',
-                    image: imgATM,
-                    imageSize: {h:44,w:44},
+                    image: Assets.imgVisa,
+                    imageSize: {h:50,w:50},
                     title: 'Thẻ Visa - Master - JCB',
                     description: 'Thu phí 3%'},
 
                     {key: 'DaiLySpay',
-                    image: imgATM,
-                    imageSize: {h:44,w:44},
+                    image: Assets.imgDaiLy,
+                    imageSize: {h:50,w:50},
                     title: 'Đại Lý SPAY',
                     description: 'Chiết khấu 5%'},
 

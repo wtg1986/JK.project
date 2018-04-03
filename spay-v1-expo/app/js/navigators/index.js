@@ -20,7 +20,7 @@ import ScrRadarCode from '../containers/scrRadarCode';
 import ScrSellCardCode from '../containers/scrSellCardCode';
 import ScrSetting from '../containers/scrSetting';
 import ScrTranferMoney from '../containers/scrTranferMoney';
-
+import ScrPaymentWalletAgency from '../containers/scrPaymentWalletAgency';
 //Test cac componet 
 import Test from '../components/boxInput';
 
@@ -47,6 +47,7 @@ export default SwitchNavigator(
       ScrBookHomeStay : ScrBookHomeStay,
       ScrLinkBlockchain : ScrLinkBlockchain,
       
+      ScrPaymentWalletAgency : ScrPaymentWalletAgency,
     },{
       initialRouteName: 'MainTab',
       mode :'card',
