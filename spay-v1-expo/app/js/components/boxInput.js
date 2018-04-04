@@ -16,12 +16,13 @@ import {color} from '../ultis/theme';
 import Button from '../components/button';
 import SelectBarSuggest from '../components/selectBarSuggest';
 import ElementSelect  from '../components/elementSelect';
+import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default class boxInput extends Component {
 
     static propTypes = {
         header : PropTypes.string,
-        input : PropTypes.array, // [{key,type,default,color,unit,suggest},...]  
+        input : PropTypes.array, // [{key,type,default,color,icon,unit,suggest},...]  
         onFocus : PropTypes.func,
         onEndEditing : PropTypes.func,
         hasBox : PropTypes.bool
@@ -66,10 +67,26 @@ export default class boxInput extends Component {
                     marginVertical : 2,
                     justifyContent :'space-between',}}>
 
+                    {/* Icon */}
+                    
+                    <View style = {{
+                        borderBottomWidth:2, 
+                        borderColor: this.state.focusIndex === i ? inp.color : color.textGray,
+                        marginLeft:20,
+                        justifyContent: 'center'}}>
+                        <Icons
+                            name = {inp.iconName}
+                            size = {26} 
+                            color = {color.shadow}> 
+                        </Icons>
+                    </View>
+
                     {/* TextInput */}
                     <TextInput 
                         ref = {me => this.textInputComponent[i] = me}
-                        style = {[style.txtInput, {borderColor:inp.color, color:inp.color}]}
+                        style = {[style.txtInput, {
+                            borderColor: this.state.focusIndex === i ? inp.color : color.textGray, 
+                            color: inp.color}]}
                         onChangeText = {input => {
                             let [ ...newValue ] = this.state.value;
                             newValue[i] = input;
@@ -99,9 +116,9 @@ export default class boxInput extends Component {
                                 duration: 200,
                                 toValue: 0
                             }).start(() => {
-                                // this.setState (oldState => {
-                                //     return {...this.state, focusIndex:0}
-                                // })
+                                this.setState (oldState => {
+                                    return {...oldState, focusIndex:-1}
+                                })
                             } ) 
                         }} 
 
@@ -119,8 +136,8 @@ export default class boxInput extends Component {
 
                     {/* UnitText */}
                     <View style = {{
-                        marginRight:20,
-                        borderColor:color.primary, 
+                        marginRight: 20,
+                        borderColor: this.state.focusIndex === i ? color.primary : color.textGray, 
                         borderBottomWidth: Platform.OS === 'ios' ? 2 : 0,
                         justifyContent : 'center' }}>
                         <Text style= {{color : color.primary,fontStyle:'italic'}}>{inp.unit}</Text>
@@ -176,8 +193,9 @@ const style = StyleSheet.create(
     txtInput :{
         flex:1,
         fontSize : 18,
-        paddingTop : 5,
-        marginLeft: 20,
+        // padding : 3,
+        paddingHorizontal: 5.5,
+        // marginLeft: 20,
         height: 40, 
         borderColor: color.primary, 
         borderBottomWidth: Platform.OS === 'ios' ? 2 : 0,

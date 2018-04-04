@@ -50,6 +50,7 @@ render() {
                         {key : 'Money',
                         type : 'default',
                         default : 'Nhập số tiền',
+                        iconName : 'coin',
                         color : color.primary,
                         unit : 'VNĐ',
                         suggest : [{'key':'10,000'},{'key':'20,000'},{'key':'50,000'},{'key':'100,000'},
@@ -85,7 +86,7 @@ render() {
                     }}
                 />
 
-                <Text style = {{fontStyle:'italic', marginLeft:10, marginTop: 15,color:color.textGray}}>
+                <Text style = {{fontSize:15, fontStyle:'italic', marginLeft:10, marginTop: 15,color:color.textGray}}>
                     Số tiền tối hiểu: 50.000 đ {'\n'}
                     Nạp bằng thẻ cào: phí 17% {'\n'}
                     Nạp bằng ATM/Internet Banking: Miễn phí {'\n'}
@@ -122,7 +123,7 @@ const style = StyleSheet.create(
     root : {
         flex : 1, 
         justifyContent : 'space-between',
-        paddingHorizontal : 15,
+        paddingHorizontal : 10,
         paddingBottom: 15,
         backgroundColor : color.background,
     },

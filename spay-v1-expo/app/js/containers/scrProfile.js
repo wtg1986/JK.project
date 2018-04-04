@@ -19,7 +19,7 @@ export class scrProfile extends Component {
 
     render() {
         return (
-            <View style ={{flex : 1, backgroundColor : color.background, padding : 15, justifyContent:'space-between'}}>
+            <View style ={{flex : 1, backgroundColor : color.background, padding : 10, justifyContent:'space-between'}}>
 
                 <View style = {style.box}>
 
@@ -37,24 +37,28 @@ export class scrProfile extends Component {
                                 key : 'Email',
                                 type : 'default',
                                 default : 'Email',
+                                iconName : 'contact-mail',
                                 color : color.textGray,
                             },
                             {
                                 key : 'Passport',
                                 type : 'default',
                                 default : 'Chứng minh nhân dân',
+                                iconName : 'passport',
                                 color : color.textGray,
                             },
                             {
                                 key : 'Username',
                                 type : 'default',
                                 default : 'Tên đầy đủ',
+                                iconName : 'account-settings',
                                 color : color.textGray,
                             },
                             {
                                 key : 'Address',
                                 type : 'default',
                                 default : 'Địa chỉ',
+                                iconName : 'home-map-marker',
                                 color : color.textGray,
                             },
                         ]}
@@ -132,6 +136,7 @@ const style = StyleSheet.create(
     },
     textMobile : {
         marginLeft: 20,
+        marginBottom: 3,
         fontSize: 18,
         // fontWeight: 'bold',
         color: color.textGray

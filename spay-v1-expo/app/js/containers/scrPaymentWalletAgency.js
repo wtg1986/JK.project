@@ -30,7 +30,6 @@ export class scrPaymentWalletAgency extends Component {
         return (
             <View style = {style.root}> 
                 <BoxSelectAgency header = 'CHỌN ĐẠI LÝ'/>
-
                 <Button text = 'TIẾP THEO' fontSize = {17} height = {50} />
             </View>
         )

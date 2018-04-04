@@ -21,6 +21,7 @@ import ScrSellCardCode from '../containers/scrSellCardCode';
 import ScrSetting from '../containers/scrSetting';
 import ScrTranferMoney from '../containers/scrTranferMoney';
 import ScrPaymentWalletAgency from '../containers/scrPaymentWalletAgency';
+import ScrPaymentGamePurchase from '../containers/scrPaymentGamePurchase';
 //Test cac componet 
 import Test from '../components/boxInput';
 
@@ -46,7 +47,7 @@ export default SwitchNavigator(
       ScrSellCardCode : ScrSellCardCode,
       ScrBookHomeStay : ScrBookHomeStay,
       ScrLinkBlockchain : ScrLinkBlockchain,
-      
+      ScrPaymentGamePurchase : ScrPaymentGamePurchase,
       ScrPaymentWalletAgency : ScrPaymentWalletAgency,
     },{
       initialRouteName: 'MainTab',

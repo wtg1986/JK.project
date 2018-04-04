@@ -44,10 +44,10 @@ const style = StyleSheet.create(
     {
         row : { 
             // backgroundColor : color.textGray,
-            justifyContent: 'flex-start',
-            // justifyContent: 'space-between',
+            // justifyContent: 'flex-start',
+            justifyContent: 'space-between',
+            alignItems: 'center',
             flexDirection: 'row',
-            // flex : 1
         },
         
         element : {

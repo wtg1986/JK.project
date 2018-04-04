@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View,TouchableOpacity,Text,StyleSheet,Modal } from 'react-native';
+import { View,TouchableOpacity,Text,StyleSheet,ScrollView } from 'react-native';
 import { color } from '../ultis/theme';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -71,8 +71,10 @@ export class scrHome extends Component {
                     </View>
                 </View>
             </View>
-
+           
             <View style = {style.body}>
+
+            <ScrollView keyboardShouldPersistTaps ='always'>
 
                 <View style = {style.boxFunction}>
 
@@ -110,8 +112,11 @@ export class scrHome extends Component {
                     </ButtonGroupFuntion>
 
                 </View>
+                
+            </ScrollView>
 
             </View>
+           
             
             <ButtonGroupFeature
                 iconLabel = {[
@@ -123,7 +128,7 @@ export class scrHome extends Component {
                 iconLabelColor = {color.textDark}
                 badgeColor = {{background : color.warning, text : color.white}}
                 onPress = {[
-                    ()=>{this.props.navigation.navigate('ScrPaymentWalletAgency')},
+                    ()=>{this.props.navigation.navigate('ScrPaymentWallet')},
                     ()=>{this.props.navigation.navigate('ScrCashOutWallet')},
                     ()=>{this.props.navigation.navigate('ScrQRCodeScan')},
                     ()=>{this.props.navigation.navigate('ScrMyBag')},
@@ -170,10 +175,11 @@ const style = StyleSheet.create(
         boxFunction : {
             backgroundColor : color.box,
             // height : 320,
+            paddingVertical: 10,
             marginTop : 56,
             marginHorizontal: 15,
             borderRadius : 10,
-            justifyContent :'center'
+            justifyContent :'center',
             // shadowColor: '#929292',
             // shadowOffset: { width: 1, height: 1 },
             // shadowRadius: 2.5,

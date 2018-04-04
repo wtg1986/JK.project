@@ -1,4 +1,3 @@
-
 import {
     StyleSheet, 
     Text,
@@ -66,7 +65,8 @@ export default class boxSelect extends Component {
                             }
                             Keyboard.dismiss()
                             this.props.onSelect&&
-                            this.props.onSelect(inp.key,this.state.selected)
+                            this.props.onSelect(i,inp.key,this.state.selected)
+                            //************ */
                         })
                     }}
                 >

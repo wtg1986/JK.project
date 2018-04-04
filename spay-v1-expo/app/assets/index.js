@@ -8,7 +8,7 @@ export const imgVisa = require ('./pngs/imgVisa.png')
 export const imgDaiLy = require ('./pngs/imgDaiLy.png')
 
 //Remote Image
-const endpoint = 'http://10.1.1.4:5000/'
+const endpoint = 'http://192.168.1.134:5000/'
 export const iconAuMobile = endpoint + 'pngs/iconAuMobile.png';
 export const iconBidaDo = endpoint + 'pngs/iconBidaDo.png';
 export const iconTapKich = endpoint + 'pngs/iconTapKich.png';

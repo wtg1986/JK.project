@@ -1,4 +1,3 @@
-
 import {StyleSheet, Text, View, TouchableOpacity, Dimensions} from 'react-native';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -9,6 +8,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import GirdGroup from '../components/girdGroup';
 
 export default class buttonGroupFuntion extends Component {
+
     static propTypes = {
         iconLabel : PropTypes.array.isRequired,
         iconColor : PropTypes.array.isRequired,
@@ -36,21 +36,21 @@ export default class buttonGroupFuntion extends Component {
             case 'Entypo':
                 return  <Entypo 
                             name = {name} 
-                            size = {40} 
+                            size = {46} 
                             color= {color} > 
                         </Entypo>
               break;
             case 'MaterialCommunityIcons':
                 return  <MaterialCommunityIcons 
                             name = {name} 
-                            size = {40} 
+                            size = {46} 
                             color= {color} > 
                         </MaterialCommunityIcons>
               break;
             case 'FontAwesome':
                 return  <FontAwesome 
                             name = {name} 
-                            size = {40} 
+                            size = {46} 
                             color= {color} > 
                         </FontAwesome>
               break;
@@ -60,20 +60,24 @@ export default class buttonGroupFuntion extends Component {
 
 //------------------------------------------------------------------------------------------
 
-    _renderButtonFuntion = (icon,label) => {
-        let w = (this._oWidth - 62) / this._columns
-        let h = w + 10
+    _renderButtonFuntion = (i,icon,label) => {
+        let w = (this._oWidth - 60) / this._columns
+        let h = w + 15
         return (
-            <View style ={{width:w, height:h, alignItems: 'stretch'}}>
-                <View style ={{flex:1.4, justifyContent:'center',alignItems: 'center',}}>
-                    {icon}
+            <TouchableOpacity onPress = {()=>{
+                this.props.onPress[i] && this.props.onPress[i]()
+            }} >
+                <View style ={{width:w, height:h, alignItems: 'stretch'}}>
+                    <View style ={{flex:1.5, justifyContent:'center',alignItems: 'center',}}>
+                        {icon}
+                    </View>
+                    <View style ={{flex:1, justifyContent:'flex-start', paddingHorizontal:2}}>
+                        <Text style = {{textAlign:'center', color:color.textDark}}>
+                            {label}
+                        </Text>
+                    </View>
                 </View>
-                <View style ={{flex:1, justifyContent:'flex-start',}}>
-                    <Text style = {{textAlign:'center', color:color.textDark}}>
-                        {label}
-                    </Text>
-                </View>
-            </View>
+            </TouchableOpacity>
         )
     }
 
@@ -84,51 +88,17 @@ export default class buttonGroupFuntion extends Component {
         const {iconLabel, iconColor, badge, badgeColor,onPress} = this.props;
 
         return (
-            <View style={style.root}>
-                <GirdGroup columns = {this._columns} elementMargin = {2.5}>
-                    {
-                    iconLabel.map((oj,i) => this._renderButtonFuntion(
+            <GirdGroup columns = {this._columns} elementMargin = {2.5}>
+                {
+                    iconLabel.map((oj,i) => this._renderButtonFuntion(i,
                         this._renderIcon(oj.family,oj.icon,iconColor[i]),oj.label,))
-                    }
-                </GirdGroup>
-                {/* iconLabel.map((oj,i)=> { */}
-            </View>
+                }   
+            </GirdGroup>
         )
     };
 };
 
 const style = StyleSheet.create(
     {
-        root : {
-            height : 300,
-            width : 300,
-            margin : 6,
-            // backgroundColor:'red'
-        },
-
-        button : {
-            backgroundColor :'#E4E8EA',
-            height : 83,
-            width : 83,
-            position: 'absolute',
-            justifyContent : 'flex-start',
-            alignItems: 'center',
-            borderRadius: 10,
-        },
-
-        label : {
-            marginTop: 3,
-            fontSize: 13,
-            width : 80,
-            textAlign : 'center',
-        },
-
-        badge : {
-            borderRadius : 10,
-            right: 0,
-            position: 'absolute',
-            // padding: 2,
-        }
-
     }
   )

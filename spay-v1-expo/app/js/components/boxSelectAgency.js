@@ -8,6 +8,7 @@ import {Text,
         Animated,
         TouchableWithoutFeedback,
         TouchableOpacity,
+        ScrollView,
         Easing} from 'react-native';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -29,7 +30,7 @@ export default class name extends Component {
         header : 'CHỌN ĐẠI LÝ',
         agencys : [{ 
                 agencyId : 1,
-                avataUri : 'http://10.1.1.4:5000/jpgs/avata_0973651368.jpg',
+                avataUri : 'http://192.168.1.134:5000/jpgs/avata_0973651368.jpg',
                 agencyName : 'Kenny Tran',
                 address : '106/41 Phố Vọng, Hai Bà Trưng',
                 distance : '1.2km',
@@ -37,7 +38,7 @@ export default class name extends Component {
                 longitude : 105.862480
             },{ 
                 agencyId : 2,
-                avataUri : 'http://10.1.1.4:5000/jpgs/avata_0904061516.jpg',
+                avataUri : 'http://192.168.1.134:5000/jpgs/avata_0904061516.jpg',
                 agencyName : 'Ngọc Bảo',
                 address : '18 Tam Trinh',
                 distance : '1.6km',
@@ -45,7 +46,7 @@ export default class name extends Component {
                 longitude : 105.8656
             },{ 
                 agencyId : 3,
-                avataUri : 'http://10.1.1.4:5000/jpgs/avata_0983281083.jpg',
+                avataUri : 'http://192.168.1.134:5000/jpgs/avata_0983281083.jpg',
                 agencyName : 'Trần Hằng',
                 address : 'Tam Trinh',
                 distance : '550m',
@@ -53,7 +54,7 @@ export default class name extends Component {
                 longitude : 105.8552
             },{ 
                 agencyId : 4,
-                avataUri : 'http://10.1.1.4:5000/jpgs/avata_0904396877.jpg',
+                avataUri : 'http://192.168.1.134:5000/jpgs/avata_0904396877.jpg',
                 agencyName : 'Quỳnh Tít',
                 address : 'Trương Định',
                 distance : '900m',
@@ -183,23 +184,27 @@ export default class name extends Component {
 //------------------------------------------------------------------------------------------
     _renderListAgency = (data) => {
         return(
-            data.map((oj,i)=>
-            <TouchableWithoutFeedback key = {i} onPress = {()=>{
+            <ScrollView keyboardShouldPersistTaps ='always'>
+            {
+                data.map((oj,i)=>
+                <TouchableWithoutFeedback key = {i} onPress = {()=>{
 
-                Animated.timing(this.state.heightTextInput,{easing: Easing.easeOutElastic, 
-                                                            duration: 5,
-                                                            toValue: 0})
-                        .start(()=>{
-                            this.setState(oldState => {return({...oldState, selected:i})},()=>{
-                            Animated.timing(this.state.heightTextInput,{easing: Easing.easeOutElastic, 
-                                                                        duration: 300,
-                                                                        toValue: 32})
-                                    .start()
+                    Animated.timing(this.state.heightTextInput,{easing: Easing.easeOutElastic, 
+                                                                duration: 5,
+                                                                toValue: 0})
+                            .start(()=>{
+                                this.setState(oldState => {return({...oldState, selected:i})},()=>{
+                                Animated.timing(this.state.heightTextInput,{easing: Easing.easeOutElastic, 
+                                                                            duration: 300,
+                                                                            toValue: 32})
+                                        .start()
+                        })
                     })
-                })
-            }}>
-                {this._renderElementAgency(oj,this.state.selected == i)}
-            </TouchableWithoutFeedback>)
+                }}>
+                    {this._renderElementAgency(oj,this.state.selected == i)}
+                </TouchableWithoutFeedback>)
+            }
+            </ScrollView>
         )
     }
 
@@ -255,6 +260,8 @@ export default class name extends Component {
         )
     }
 
+//------------------------------------------------------------------------------------------
+
     render() {
         return (
             <Box full = {true} header = {this.props.header}>
@@ -281,7 +288,9 @@ export default class name extends Component {
         )
     };
 };
-      
+
+//------------------------------------------------------------------------------------------
+
 const style = StyleSheet.create({
     elementAgency : {
         borderRadius : 9,
