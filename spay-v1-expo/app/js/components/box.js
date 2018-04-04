@@ -25,7 +25,7 @@ export default class box extends Component {
     render() {
         const input = this.props.input;
         return (
-            <View style = {style.root}>
+            <View style = {[style.root,{flex : this.props.full ? 1 : null}]}>
                 {this.props.header ? <Text style = {style.header}> {this.props.header} </Text> : null}
                 {this.props.children}
             </View>)
@@ -36,9 +36,11 @@ const style = StyleSheet.create(
   {
     root : {
         // flex : 1,
-        marginTop: 15,
+        marginTop: 10,
+        marginBottom: 10,
         paddingHorizontal: 10,
-        paddingVertical: 20,
+        paddingTop: 20,
+        paddingBottom: 10,
         justifyContent :'flex-start',
         backgroundColor : color.box,
         borderRadius: 10,

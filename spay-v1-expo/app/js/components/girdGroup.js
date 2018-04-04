@@ -44,8 +44,8 @@ const style = StyleSheet.create(
     {
         row : { 
             // backgroundColor : color.textGray,
-            // justifyContent: 'flex-start',
-            justifyContent: 'space-between',
+            justifyContent: 'flex-start',
+            // justifyContent: 'space-between',
             flexDirection: 'row',
             // flex : 1
         },

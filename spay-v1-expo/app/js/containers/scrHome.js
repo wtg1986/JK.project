@@ -169,14 +169,15 @@ const style = StyleSheet.create(
         },
         boxFunction : {
             backgroundColor : color.box,
-            height : 320,
+            // height : 320,
             marginTop : 56,
             marginHorizontal: 15,
             borderRadius : 10,
-            shadowColor: '#929292',
-            shadowOffset: { width: 1, height: 1 },
-            shadowRadius: 2.5,
-            shadowOpacity: .3,
+            justifyContent :'center'
+            // shadowColor: '#929292',
+            // shadowOffset: { width: 1, height: 1 },
+            // shadowRadius: 2.5,
+            // shadowOpacity: .3,
         }
     }
   )
