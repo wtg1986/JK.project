@@ -58,6 +58,9 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+//Cấu hình static resscource
+app.use(express.static('public'))
+
 //Cấu hình lắng socket
 var socketPort = (process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 3002);
 serverHttp.listen(socketPort, () => console.log('1. Socket start in: port ' + socketPort));

@@ -14,6 +14,10 @@ var accountSchema = new schema({
         type: String,
         default: "normal"
     },
+    pushToken:{
+        type: String,
+        default: ""
+    },
     mobileNumber:{
         type: String,
         require: true
@@ -64,6 +68,18 @@ var accountSchema = new schema({
     // lastPaymentGame:{
         
     // },
+    latitude:{
+        type: Number,
+        default:0
+    },
+    longitude: {
+        type: Number,
+        default:0
+    },
+    accountStatus:{
+        type: String,
+        default: 'offline'
+    },
     accountState:{
         type: [{
             type: String,
