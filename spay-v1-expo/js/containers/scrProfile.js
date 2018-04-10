@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import {View, TouchableOpacity, Text, StyleSheet} from 'react-native';
+import {View, TouchableOpacity, Text, StyleSheet,Image} from 'react-native';
 import { color} from '../utils/theme';
 // import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 import BoxInput from '../components/boxInput';
 import SvgUri from 'react-native-svg-uri'
 import {svgAvataMen} from '../../assets';
 import Button from '../components/button';
+import {serverResource} from '../utils/global';
 export class scrProfile extends Component {
     static navigationOptions = {
         title : 'THÔNG TIN TÀI KHOẢN',
@@ -19,6 +20,7 @@ export class scrProfile extends Component {
 //   };
 
     render() {
+        console.log(this.props.avataUrl)
         return (
             <View style ={{flex : 1, backgroundColor : color.background, padding : 10, justifyContent:'space-between'}}>
 
@@ -26,7 +28,7 @@ export class scrProfile extends Component {
 
                     <Text style = {style.textMobile}>
                         Số điện thoại: <Text style = {[style.textMobile,{fontWeight: 'bold',color:color.primary}]} >
-                            0973.651.368
+                            {this.props.mobileNumber}
                         </Text>
                     </Text>
 
@@ -95,12 +97,9 @@ export class scrProfile extends Component {
                     borderWidth: 1,
                     borderColor: color.shadow,
                 }}>
-                    <SvgUri 
-                        width="130" 
-                        height="130" 
-                        source = {{uri:svgAvataMen}}>
-                    </SvgUri>
-
+                    <Image 
+                        style = {{width:130,height:130,borderRadius:65}} 
+                        source = {{uri: serverResource + this.props.avataUrl}}/>
                 </View>
            
                 <Button text = 'CẬP NHẬT' fontSize = {17} height = {50} />
@@ -110,16 +109,23 @@ export class scrProfile extends Component {
     };
 };
 
-// const mapStateToProps = (state) => ({
-  
-// })
+const mapStateToProps = (state) => {
+    return { 
+        mobileNumber: state.mobileNumber,
+        email: state.email,
+        passport: state.passport,
+        username: state.username,
+        address: state.address,
+        avataUrl: state.avataUrl
+    }
+}
 
 // const mapDispatchToProps = {
   
 // };
 
-// export default connect(mapStateToProps, mapDispatchToProps)(componentName)
-export default scrProfile
+export default connect(mapStateToProps)(scrProfile)
+// export default scrProfile
 
 const style = StyleSheet.create(
 {

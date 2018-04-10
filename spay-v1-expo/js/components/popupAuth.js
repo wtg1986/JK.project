@@ -62,7 +62,9 @@ export default class popupAuth extends Component {
                                     ...oldState, inputValue:input
                                 })})
                             }}
-                            valu e= {this.state.inputValue}
+                            autoCorrect = {false}
+                            underlineColorAndroid = 'transparent'
+                            value= {this.state.inputValue}
                             keyboardType = {this.props.enumInputType === 'NUMBER' ? 'numeric' : 'default'}
                             secureTextEntry = {this.props.enumInputType === 'PASS'}
                             autoFocus = {this.props.autoFocus}

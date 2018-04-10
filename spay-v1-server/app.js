@@ -6,6 +6,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/accounts');
+var pushsRouter = require('./routes/pushs');
 
 var app = express();
 
@@ -41,6 +42,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/accounts', usersRouter);
+app.use('/pushs', pushsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -66,43 +68,43 @@ var socketPort = (process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 3002)
 serverHttp.listen(socketPort, () => console.log('1. Socket start in: port ' + socketPort));
 
 socketio.on('connection', (socket) => {
-    console.log('Có 1 client đã kết nối với ID: '+ socket.id + ': connected');
+    console.log(`Một thiết bị mới kết nối tới Server với Socket ID:${socket.id}`);
    
     // socket.emit('id',socket.id);
     
     //lắng nghe khi người dùng thoát
     socket.on('disconnect', function() {
-        console.log(socket.id + ': disconnected')
-        $index = _findIndex(userOnline, ['id', socket.id]);
-        userOnline.splice($index, 1);
-        socketio.sockets.emit('updateUesrList', userOnline);
+        console.log(`Thiết bị [${socket.id}] ngắt kết nối`)
+        // $index = _findIndex(userOnline, ['id', socket.id]);
+        // userOnline.splice($index, 1);
+        // socketio.sockets.emit('updateUesrList', userOnline);
     })
 
     //lắng nghe khi có người gửi tin nhắn
     socket.on('newMessage_client', data => {
         //gửi lại tin nhắn cho tất cả các user dang online
         console.log(data)
-        socketio.sockets.emit('newMessage_server',
-        {
-            id: data.id,
-            data: data.data
-        });
+        // socketio.sockets.emit('newMessage_server',
+        // {
+        //     id: data.id,
+        //     data: data.data
+        // });
     })
 
     //lắng nghe khi có người login
     socket.on('login', data => {
         // kiểm tra xem tên đã tồn tại hay chưa
-        if (userOnline.indexOf(data) >= 0) {
-            socket.emit('loginFail'); //nếu tồn tại rồi thì gửi socket fail
-        } else {
-            // nếu chưa tồn tại thì gửi socket login thành công
-            socket.emit('loginSuccess', data);
-            userOnline.push({
-                id: socket.id,
-                name: data
-            })
-            socketio.sockets.emit('updateUesrList', userOnline);// gửi danh sách user dang online
-        }
+        // if (userOnline.indexOf(data) >= 0) {
+        //     socket.emit('loginFail'); //nếu tồn tại rồi thì gửi socket fail
+        // } else {
+        //     // nếu chưa tồn tại thì gửi socket login thành công
+        //     socket.emit('loginSuccess', data);
+        //     userOnline.push({
+        //         id: socket.id,
+        //         name: data
+        //     })
+        //     socketio.sockets.emit('updateUesrList', userOnline);// gửi danh sách user dang online
+        // }
     }) 
 });
 

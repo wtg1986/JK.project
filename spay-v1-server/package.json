@@ -9,6 +9,7 @@
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "ejs": "~2.5.7",
+    "expo-server-sdk": "^2.3.3",
     "express": "~4.16.0",
     "google-distance-matrix": "^1.1.1",
     "http-errors": "~1.6.2",

@@ -11,12 +11,12 @@ export const imgBarCode = require ('./pngs/imgBarCode.png')
 
 import {serverResource} from '../js/utils/global';
 
-export const iconAuMobile = serverResource + '/pngs/iconAuMobile.png';
-export const iconBidaDo = serverResource + '/pngs/iconBidaDo.png';
-export const iconTapKich = serverResource + '/pngs/iconTapKich.png';
-export const iconTuThanh = serverResource + '/pngs/iconTuThanh.png';
-export const svgPet = serverResource + '/svgs/svgPet.svg';
-export const svgAvataMen = serverResource + '/svgs/svgAvataMen.svg';
+export const iconAuMobile = serverResource + '/images/pngs/iconAuMobile.png';
+export const iconBidaDo = serverResource + '/images/pngs/iconBidaDo.png';
+export const iconTapKich = serverResource + '/images/pngs/iconTapKich.png';
+export const iconTuThanh = serverResource + '/images/pngs/iconTuThanh.png';
+export const svgPet = serverResource + '/images/svgs/svgPet.svg';
+export const svgAvataMen = serverResource + '/images/svgs/svgAvataMen.svg';
 
 
 

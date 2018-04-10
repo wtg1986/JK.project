@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {View,TouchableOpacity,Text, ScrollView,StyleSheet} from 'react-native';
 import { color } from '../utils/theme';
 // import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 
 import BoxInput from '../components/boxInput';
 import BoxSelect from '../components/boxSelect';
@@ -26,25 +26,14 @@ export class scrPaymentWallet extends Component {
 //   };
 
 render() {
-    
+    let money = 0;
+    let method = ''
     return (
         // <ScrollView keyboardShouldPersistTaps ='always'>
         <View style ={style.root}>
             {/* <ScrollView keyboardShouldPersistTaps ='always'> */}
             <View style ={{flex : 1}}>
             
-                {/* <PopupAuth
-                    imgLogo = {require('../../assets/logos/logoSpay.png')} 
-                    txtNotification = 'Nhập mã xác thực số điện thoại'
-                    txtButon = 'TIẾP TỤC'
-                    enumInputType = 'PIN_CODE'
-                    autoFocus = {true}
-                    onAction = {()=>{
-                        this.props.navigation.navigate('ScrRadarCode')
-                    }}
-                >
-                </PopupAuth> */}
-
                 <BoxInput
                     header = 'SỐ TIỀN MUỐN NẠP'
                     input = {[
@@ -57,6 +46,9 @@ render() {
                         suggest : [{'key':'10,000,000'},{'key':'5,000,000'},{'key':'2,000,000'},{'key':'1,000,000'},
                         {'key':'500,000'},{'key':'200,000'},{'key':'100,000'},{'key':'50,000'},]},
                     ]}
+                    onEndEditing = {(value) => {
+                        money = value
+                    }}
                 />
                 
                 <BoxSelect
@@ -82,13 +74,13 @@ render() {
 
                     ]}
                     mutilselect = {false}
-                    onSelect = {(selectItem) => {
-                        // alert (selectItem)
+                    onSelect = {(i,selectItem) => {
+                        method = selectItem
                     }}
                 />
 
                  <Text style = {{fontSize:17, fontStyle:'italic', marginLeft:5, marginTop: 15,color:color.textGray}}>
-                    Số dư: <Text style = {{fontWeight:'bold', color : color.primary}}> 1,302,000 </Text>vnđ
+                    Số dư: <Text style = {{fontWeight:'bold', color : color.primary}}> {this.props.balance} </Text>vnđ
                 </Text>
 
                 <Text style = {{fontSize:15, fontStyle:'italic', marginLeft:5, marginTop: 15,color:color.textGray}}>
@@ -99,6 +91,7 @@ render() {
 
             <Button text = 'TIẾP TỤC' fontSize = {17} height = {50} 
                 onPress = {()=>{
+                    if (money!==0 && method==='DaiLySpay')
                     this.props.navigation.navigate('ScrPaymentWalletAgency')
                 }}
             />
@@ -110,16 +103,16 @@ render() {
   };
 };
 
-// const mapStateToProps = (state) => ({
-  
-// })
+const mapStateToProps = (state) => ({
+  balance : state.balance
+})
 
 // const mapDispatchToProps = {
   
 // };
 
-// export default connect(mapStateToProps, mapDispatchToProps)(componentName)
-export default scrPaymentWallet
+export default connect(mapStateToProps)(scrPaymentWallet)
+// export default scrPaymentWallet
 
 const style = StyleSheet.create(
 {

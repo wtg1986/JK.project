@@ -46,7 +46,7 @@ export class scrHome extends Component {
                         >
                             <EntypoIcon name = {'wallet'} size= {32} color={color.white} /> 
                             <Text style = {{marginLeft: 3, color: color.white, fontSize: 17, fontWeight:'900'}}>
-                                097.365.1368
+                                {this.props.mobileNumber}
                             </Text>
                         </TouchableOpacity>
 
@@ -69,12 +69,12 @@ export class scrHome extends Component {
                                         shadowOffset: { width: 2, height: 2 },
                                         shadowRadius: 3,
                                         shadowOpacity: .6}}>
-                        91.350.000 vnđ
+                            {this.props.balance} vnđ
                         </Text>
 
                         <View style = {{flexDirection:'row',alignItems :'center'}}>
                             <Text style = {{color: color.white, fontSize: 18, fontWeight:'bold',}}>
-                                91.280
+                                {this.props.cashBackPoint}
                             </Text>
                             <MaterialCommunityIcons name = {'water-percent'} size= {32} color={color.white} /> 
                         </View>
@@ -162,16 +162,35 @@ export class scrHome extends Component {
   };
 };
 
-// const mapStateToProps = (state) => ({
+// accountId : value.accountId,
+// mobileNumber : value.mobileNumber,
+// pushToken : value.pushToken,
+// newNotiCount : value.newNotiCount,
+// latitude : value.latitude,
+// longitude : value.longitude,
+// refCode : value.refCode,
+// cashBackPoint : value.cashBackPoint,
+// balance : value.balance,
+// avataUrl : value.avataUrl,
+// address : value.address,
+// username : value.username,
+// passport : value.passport,
+// email : value.email,
   
-// })
+const mapStateToProps = (state) => {
+    return { 
+        mobileNumber: state.mobileNumber,
+        balance: state.balance,
+        cashBackPoint: state.cashBackPoint
+    }
+}
 
 // const mapDispatchToProps = {
   
 // };
 
-// export default connect(mapStateToProps, mapDispatchToProps)(componentName)
-export default scrHome
+export default connect(mapStateToProps)(scrHome)
+// export default scrHome
 
 
 const style = StyleSheet.create(

@@ -127,6 +127,8 @@ export default class modalShareFriends extends Component {
 
                             <TextInput 
                                 // ref = {me => this.textInputComponent[i] = me}
+                                autoCorrect = {false}
+                                underlineColorAndroid = 'transparent'   
                                 style = {{
                                     fontSize : 18,
                                     paddingHorizontal: 5.5,

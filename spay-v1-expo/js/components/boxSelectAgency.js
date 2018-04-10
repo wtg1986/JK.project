@@ -169,6 +169,8 @@ export default class name extends Component {
 
                     <TextInput 
                         // ref = {me => this.textInputComponent[i] = me}
+                        autoCorrect = {false}
+                        underlineColorAndroid = 'transparent'
                         style = {style.textInputMessage}
                         placeholder = 'Nhập lời nhắn cho Đại Lý'
                         onChangeText = {input => {
@@ -221,7 +223,7 @@ export default class name extends Component {
                 customMapStyle = {generatedMapStyle}
                 showsUserLocation={true}
                 // followsUserLocation = {true}
-                showsMyLocationButton={true}
+                // showsMyLocationButton={true}
                 region = {{
                     latitude: this.state.location.coords.latitude,
                     longitude: this.state.location.coords.longitude,

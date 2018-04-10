@@ -88,6 +88,8 @@ export default class boxInput extends Component {
                     {/* TextInput */}
                     <TextInput 
                         ref = {me => this.textInputComponent[i] = me}
+                        autoCorrect = {false}
+                        underlineColorAndroid = 'transparent'
                         style = {[style.txtInput, {
                             borderColor: this.state.focusIndex === i ? inp.color : color.textGray, 
                             color: inp.color}]}

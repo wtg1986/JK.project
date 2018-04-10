@@ -50,6 +50,8 @@ export default class inputPincode extends Component {
             <TextInput
                 key = {i}
                 ref = {cpn => { this._pinputs[i] = cpn }}
+                autoCorrect = {false}
+                underlineColorAndroid = 'transparent'
                 style = {style.txtPinInput}
                 keyboardType='numeric'
                 maxLength = {1}
