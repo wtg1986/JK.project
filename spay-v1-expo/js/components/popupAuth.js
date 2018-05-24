@@ -5,15 +5,25 @@ import {
     Image,
     TextInput,
     TouchableOpacity,
-    KeyboardAvoidingView
+    KeyboardAvoidingView,
+    Alert,
+    Dimensions
 } from 'react-native';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {color} from '../utils/theme';
 import InputPincode from './inputPincode';
 import Button from '../components/button';
+import { Switch } from 'react-native-gesture-handler';
+// import {Constants} from 'expo';
+import PasswordStrength from '../utils/passwordStrength';
+
+const { width: wWidth } = Dimensions.get('window');
 
 export default class popupAuth extends Component {
+
+//------------------------------------------------------------------------------------------
+
     static propTypes = {
         // imgLogo: PropTypes.string.,
         // txtNotification: PropTypes.string,
@@ -26,162 +36,252 @@ export default class popupAuth extends Component {
         enumInputType: PropTypes.string,
         autoFocus : PropTypes.bool
     };    
+
+//------------------------------------------------------------------------------------------
+
     constructor(props) {
         super(props);
         this.state = { 
             inputValue: '',
+            rePass:false,
+            isValidPass:false,
+            txtDesc: this.props.txtDescription
         };
-        console.log(this.props.imgLogo)
+        // console.log(wWidth)
     }
 
-  render() {
-    return (
-    
+//------------------------------------------------------------------------------------------
+
+    _renderInput = () => {
+        switch (this.props.enumInputType) {
+            
+            case 'NUMBER' :
+            case 'PASS_LOGIN' :
+                return <View style ={style.txtInputWrapper}>
+                            <TextInput
+                                style = {style.txtInput}
+                                onChangeText = {(input)=>{
+                                    this.setState(oldState => {return({...oldState, inputValue:input})})
+                                }}
+                                autoCorrect = {false}
+                                underlineColorAndroid = 'transparent'
+                                value= {this.state.inputValue}
+                                keyboardType = {this.props.enumInputType === 'NUMBER' ? 'phone-pad' : 'default'}
+                                secureTextEntry = {this.props.enumInputType === 'PASS_LOGIN'}
+                                autoFocus = {this.props.autoFocus}
+                                clearTextOnFocus={false}
+                            />
+                        </View>
+            case 'PASS_REGISTER':
+
+                const strengthLevels = [
+                    {
+                        label: 'Mật khẩu không đúng quy định',
+                        labelColor: '#929292',
+                        widthPercent: 25,
+                        innerBarColor: '#e61610'
+                    },
+                    {
+                        label: 'Mật khẩu không đúng quy định',
+                        labelColor: '#929292',
+                        widthPercent: 25,
+                        innerBarColor: '#e61610'
+                    },
+                    {
+                        label: 'Mật khẩu đúng quy định',
+                        labelColor: '#929292',
+                        widthPercent: 50,
+                        innerBarColor: '#ffa834'
+                    },
+                    {
+                        label: 'Mật khẩu bảo mật tốt',
+                        labelColor: '#929292',
+                        widthPercent: 75,
+                        innerBarColor: '#c1d045'
+                    },
+                    {
+                        label: 'Mật khẩu bảo mật mạnh',
+                        labelColor: '#929292',
+                        widthPercent: 100,
+                        innerBarColor: '#72bb53'
+                    }
+                ];
+
+                return  this.state.rePass ?
+                        <View style ={style.txtInputWrapper}>
+                            <TextInput
+                                style = {style.txtInput}
+                                onChangeText = {(input)=>{
+                                    this.setState(oldState => {return({...oldState, inputValue:input})})
+                                }}
+                                autoCorrect = {false}
+                                underlineColorAndroid = 'transparent'
+                                value = {this.state.inputValue}
+                                keyboardType = 'default'
+                                secureTextEntry = {true}
+                                autoFocus = {this.props.autoFocus}
+                                clearTextOnFocus={false}
+                            />
+                        </View> :
+                        <View style ={{marginBottom: 40,}}>
+                            <PasswordStrength
+                                style = {[style.txtInput, {borderBottomWidth:0}]}
+                                secureTextEntry ={true}
+                                minLength={4}
+                                ruleNames='symbols|words|digits'
+                                ruleDescription = 'Mật khẩu cần có tối thiểu 6 ký tự bao gồm ít nhất một chữ số và một ký tự đặc biệt.'
+                                strengthLevels={strengthLevels}
+                                // tooShort={tooShort}
+                                minLevel={0}
+                                barWidthPercent={100}
+                                showBarOnEmpty={true}
+                                barColor = {color.textGray}
+                                inputStyle = {{color : color.textGray}}
+                                autoFocus = {this.props.autoFocus}
+                                onChangeText = {(pass, isValid) => {
+                                    console.log(pass,isValid)
+                                    this.setState(oldState => {return ({
+                                        ...oldState, isValidPass: isValid, inputValue: pass
+                                    })})
+                                }} /> 
+                        </View>
+               
+            case 'PIN_CODE':
+                return <View style ={{marginBottom: 30,marginTop: 10}}> 
+                            <InputPincode numberCount = {6}
+                                onEndEditing = {(pin) =>{
+                                    this.setState(oldState => {return ({
+                                        ...oldState, inputValue: pin
+                                    })})
+                                }}
+                            /> 
+                        </View>
+        }
+    }
+
+//------------------------------------------------------------------------------------------
+
+
+    _pass = null;
+
+    render() {
+        return (
+        
         <View style = {style.popup}>
-            {/* <KeyboardAvoidingView behavior = "position"> */}
-            <Image 
-                style={style.imgLogoSpay} 
-                source={this.props.imgLogo}
-            />
+            
+            <Image style={style.imgLogoSpay} source={this.props.imgLogo}/>
+
             <View>
-                <Text style = {style.textComment} > 
-                    {this.props.txtNotification}
-                </Text>
-                {
-                    this.props.txtDescription ?
-                        <Text style = {style.textComment} > 
-                            {this.props.txtDescription}
-                        </Text> : null
+                <Text style = {[style.textComment,{marginTop: 15,}]}>{this.props.txtNotification}</Text>
+                {this.props.enumInputType !== 'PIN_CODE' &&
+                <Text style = {[style.textComment,{marginTop: 20, marginBottom: 3,}]}>{this.state.txtDesc}</Text>
                 }
-                { 
-                    (this.props.enumInputType === 'PASS' || this.props.enumInputType === 'NUMBER' )?
-                        <TextInput
-                            style = {style.txtInput}
-                            onChangeText = {(input)=>{
-                                this.setState(oldState => {return({
-                                    ...oldState, inputValue:input
-                                })})
-                            }}
-                            autoCorrect = {false}
-                            underlineColorAndroid = 'transparent'
-                            value= {this.state.inputValue}
-                            keyboardType = {this.props.enumInputType === 'NUMBER' ? 'numeric' : 'default'}
-                            secureTextEntry = {this.props.enumInputType === 'PASS'}
-                            autoFocus = {this.props.autoFocus}
-                            // placeholder = {this.props.txtInputDefault}
-                            clearTextOnFocus={false}
-                            // defaultValue ='Khanh'
-                            // enablesReturnKeyAutomatically={true}
-                            // selectTextOnFocus={true}
-                        /> : 
-                    ( this.props.enumInputType === 'PIN_CODE' ?
-                        <InputPincode numberCount = {6} />
-                    :null )
-                }
+                { this._renderInput() }
+                
             </View>
-            {/* <TouchableOpacity style = {style.btnTiepTuc}
-                onPress = {(e) => {
-                    this.props.onAction(e)
-                }} 
-            >
-                <Text style = {{
-                    color : color.white,
-                    fontWeight :'bold',
-                    fontSize : 17,
-                    alignSelf :'center', 
-                }}>{this.props.txtButon}</Text>
-            </TouchableOpacity> */}
+           
+            <View>
+                <Button
+                    text = 'TIẾP TỤC'
+                    fontSize = {17}
+                    marginHorizontal = {10}
+                    height = {50}
+                    onPress = {() => {
+                        
+                        if (this.props.enumInputType === 'PASS_REGISTER') {
+                            if (this._pass) {
 
-            <Button
-                text = 'TIẾP TỤC'
-                fontSize = {17}
-                marginHorizontal = {20}
-                height = {50}
-                onPress = {(e) => {
-                    this.props.onAction(this.state.inputValue)
-                }} 
-            />
+                                if (this._pass === this.state.inputValue) {
+                                    this.props.onAction(this.state.inputValue)
+                                } else {
+                                    this.setState(oldState => {return({
+                                        ...oldState, inputValue: '', txtDesc: this.props.txtDescription, rePass: false, isValidPass: false
+                                    })}) 
+                                    this._pass = null;
+                                    Alert.alert('THÔNG BÁO','Bạn nhập lại mật khẩu không khớp, hãy nhập lại từ đầu.')
+                                }
 
-            <TouchableOpacity>
+                            } else {
+                                if (!this.state.isValidPass) {
+                                        Alert.alert('THÔNG BÁO','Bạn đặt mật khẩu không đúng quy định, hãy xem quy định và đặt lại mật khẩu.')
+                                    }
+                                else {
+                                    this._pass = this.state.inputValue
+                                    this.setState(oldState => {return({
+                                        ...oldState, inputValue: '', txtDesc: 'Nhập lại mật khẩu', rePass: true
+                                    })}) 
+                                }
+                            }
+                        } else {
+                            // if (!this.state.inputValue) 
+                            //     Alert.alert('THÔNG BÁO', 'Bạn nhập liệu chưa đúng')
+                            // else 
+                                this.props.onAction(this.state.inputValue)
+                        }
+                    }} 
+                />
+            </View>
+
+            {this.props.onBack&&
+            <TouchableOpacity onPress = {() => {this.props.onBack()}}>
                 <Text style = {{
                     color : color.textGray,
                     fontStyle : 'italic',
                     fontSize : 14,
                     alignSelf :'center', 
-                    marginBottom : 15,
+                    marginVertical : 15,
                     textDecorationLine : 'underline'
                 }}>{this.props.txtHyperlink1}</Text>
-            </TouchableOpacity>   
-            {/* </KeyboardAvoidingView> */}
+            </TouchableOpacity>}
+            
         </View>
-    
     )
   };
 };
 
+//------------------------------------------------------------------------------------------
+
 const style = StyleSheet.create(
   {
     imgLogoSpay :{
-      alignSelf: 'center',
-      marginTop: 30,
-      height: 110,
-      resizeMode: 'contain'
+        alignSelf: 'center',
+        marginTop: 25,
+        height: 68,
+        resizeMode: 'contain',
+        marginBottom: 5
     },
     textComment :{
-      width: 300,
-      alignSelf: 'center',
-      paddingBottom: 15,
-      color: color.textGray,
-      fontSize: 17,
-    //   fontWeight: 'bold',
-      alignContent: 'center',
-      textAlign : 'center',
-    //   paddingTop: 20,
-    //   backgroundColor: '#CECECE',
+        width: 330,
+        alignSelf: 'center',
+        color: color.textGray,
+        fontSize: wWidth<=320 ? 14.5: 17,
+        alignContent: 'center',
+        textAlign : 'center',
     },
     popup : {
         flex: 1,
-        height : 410,
-        marginTop: 15,
-        marginHorizontal: 15,
-        paddingVertical: 20,
-        // alignSelf: 'center',
-        // alignItems: 'center',
-        justifyContent :'space-between',
+        height : 360,
+        justifyContent :'flex-start',
         backgroundColor : color.box,
         borderRadius: 10,
         shadowColor: '#929292',
         shadowOffset: { width: .6, height: .6 },
         shadowRadius: 2.5,
         shadowOpacity: .4,
-      },
-
-    btnTiepTuc:{
-        justifyContent : 'center',
-        height : 50,
-        width : 300,
-        alignSelf: 'center',
-        // marginBottom: 25,
-        backgroundColor : color.primary,
-        borderRadius: 25,
-        shadowColor: '#929292',
-        shadowOffset: { width: .6, height: .6 },
-        shadowRadius: 2.5,
-        shadowOpacity: .4,
+    },
+    txtInputWrapper:{  
+        borderColor: color.textGray,
+        borderBottomWidth: 2,
+        marginLeft: 25,
+        marginRight: 25,
+        marginBottom: 40
     },
     txtInput:{
         fontSize : 24,
         paddingTop : 5,
-        marginLeft: 25,
-        marginRight: 25,
         height: 40, 
-        borderColor: color.primary, 
-        borderBottomWidth:2,
-        color : color.primary, //'#929292',
-        // fontStyle: 'italic',
+        color : color.primary, 
         textAlign :'center',
-        
-        // backgroundColor : '#FFA833',
     },
   }
 )

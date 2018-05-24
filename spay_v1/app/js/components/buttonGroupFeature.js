@@ -1,8 +1,12 @@
 
-import {StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import {
+    StyleSheet, 
+    Text, 
+    View, 
+    TouchableOpacity } from 'react-native';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {color} from '../ultis/theme';
+import {color} from '../utils/theme';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class buttonGroupFeature extends Component {
@@ -13,13 +17,18 @@ export default class buttonGroupFeature extends Component {
         badgeBagCount : PropTypes.number,
         onPress : PropTypes.array,
     };    
+
+//------------------------------------------------------------------------------------------
+
     constructor(props) {
         super(props);
         // this.state = {
         //     badgeBag : this.props.badgeBagCount ? this.props.badgeBagCount : 0
         // }
     }
-    
+
+//------------------------------------------------------------------------------------------
+
     render() {
 
         const {iconLabel,iconLabelColor,badgeColor,onPress} = this.props;
@@ -28,7 +37,7 @@ export default class buttonGroupFeature extends Component {
             <View style={style.root}>
                 {
                     iconLabel.map((oj,i)=> {
-                    
+
                     // Chú ý chỗ này, dấu ngoặc xuống dòng là ko hiện luôn!
                     return (  
                         <View key ={i}>    
@@ -67,6 +76,8 @@ export default class buttonGroupFeature extends Component {
     };
 };
 
+//------------------------------------------------------------------------------------------
+
 const style = StyleSheet.create(
     {
         root : {
@@ -90,7 +101,7 @@ const style = StyleSheet.create(
             shadowColor: '#929292',
             shadowOffset: { width: .6, height: .6 },
             shadowRadius: 2.5,
-            shadowOpacity: .4,
+            shadowOpacity: .6,
         },
 
         badge : {

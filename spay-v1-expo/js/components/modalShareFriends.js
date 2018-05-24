@@ -4,7 +4,8 @@ import {
     View, 
     Image,
     Modal,
-    TextInput
+    TextInput,
+    KeyboardAvoidingView
 } from 'react-native';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -17,6 +18,7 @@ export default class modalShareFriends extends Component {
     
     static propTypes = {
         // shareIcon : 
+        isShowModal : PropTypes.bool,
         shareCode : PropTypes.string,
         shareDescription : PropTypes.string,
         onClose : PropTypes.func,
@@ -28,7 +30,8 @@ export default class modalShareFriends extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            isFocusInput : false
+            isFocusInput : false,
+            textRefCode : ''
         };
     }
 
@@ -36,8 +39,9 @@ export default class modalShareFriends extends Component {
 
     render() {
         return (
-            <Modal transparent = {true} animationType = 'slide'>
+            <Modal transparent = {true} animationType = 'slide' visible = {this.props.isShowModal}>
                 <View style ={{flex:1,paddingHorizontal:10, justifyContent:'center',backgroundColor:'rgba(0,0,0,.5)' }}>
+                    <KeyboardAvoidingView behavior="position">
                     <Box>
                         <View style ={{justifyContent:'center',}}>
 
@@ -63,7 +67,7 @@ export default class modalShareFriends extends Component {
                                         fontSize:26,
                                         fontWeight:'bold',
                                         color:color.primary,
-                                    }}>AB67EF54CC</Text>
+                                    }}>{this.props.shareCode}</Text>
                                 </View>
 
                                 <View style={{
@@ -140,7 +144,9 @@ export default class modalShareFriends extends Component {
                                     textAlign :'center',
                                 }}
                                 onChangeText = {input => {
-                                    
+                                    this.setState(oldState => {return({
+                                        ...oldState,textRefCode:input
+                                    })})
                                 }}
                                 onFocus = {()=>{
                                     this.setState(oldState => {return({
@@ -152,7 +158,7 @@ export default class modalShareFriends extends Component {
                                         ...oldState,isFocusInput:false
                                     })})
                                 }}
-                                // value = {this.state.value[i]}
+                                value = {this.state.textRefCode}
                                 // keyboardType = {inp.type ? inp.type : 'default'}
                                 placeholder = 'Nhập mã giới thiệu'
                                 clearTextOnFocus = {true}
@@ -175,10 +181,14 @@ export default class modalShareFriends extends Component {
                                     text = 'NHẬN THƯỞNG'
                                     height = {44}
                                     width = {150}
+                                    onPress = {()=>{
+                                        this.props.onDone && this.props.onDone(this.state.textRefCode)
+                                    }}
                                 />
                             </View>
                         </View>
                     </Box>
+                    </KeyboardAvoidingView>
                 </View>
             </Modal>
         )

@@ -1,11 +1,20 @@
 
-import {StyleSheet,Animated, FlatList, Modal, View,TouchableWithoutFeedback} from 'react-native';
+import {
+    StyleSheet,
+    Animated, 
+    FlatList, 
+    View,
+    TouchableWithoutFeedback
+} from 'react-native';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {color} from '../ultis/theme';
 import Button from './button';
+import {color} from '../utils/theme';
+
+//------------------------------------------------------------------------------------------
 
 export default class selectBarSuggest extends Component {
+
     static propTypes = {
         suggestText : PropTypes.array,
         top : PropTypes.number,
@@ -14,40 +23,18 @@ export default class selectBarSuggest extends Component {
         onSelect : PropTypes.func,
     };    
     
+//------------------------------------------------------------------------------------------
+
     constructor(props) {
         super(props);
-        
-        // this.state = { 
-        // };
+            this.state = { 
+        };
     }
+
+//------------------------------------------------------------------------------------------
 
     render() {
         return (
-            // <Modal  transparent={true} animationType="slide" >
-
-            //     <View key = {this.props.index} 
-            //         style = {[ style.root , {
-            //             top : this.props.top, 
-            //             left : this.props.left?this.props.left:null, 
-            //             right : this.props.right?this.props.right:null,}]}> 
-
-            //         <FlatList
-            //             showsHorizontalScrollIndicator = {false}
-            //             keyboardShouldPersistTaps ='always'
-            //             horizontal = {true}
-            //             data = {this.props.suggestText}
-            //             renderItem = {
-            //                 ({item}) => <Button 
-            //                                 onPress = { () => { 
-            //                                     this.props.onSelect(item.key) 
-            //                                 }} 
-            //                                 text = {item.key}
-            //                             />
-            //             }>
-            //         </FlatList>
-            //     </View>
-            
-            // </Modal>
             <Animated.View 
                 key = {this.props.index}
                 style = {[ style.root , {
@@ -61,19 +48,20 @@ export default class selectBarSuggest extends Component {
                     horizontal = {true}
                     data = {this.props.suggestText}
                     renderItem = {
-                        ({item}) => <Button 
-                                        onPress = { () => { 
-                                            this.props.onSelect(item.key) 
-                                        }} 
-                                        text = {item.key}
-                                    />
-                    }>
-                </FlatList>
-                
+                        ({item}) => 
+                            <Button 
+                                marginVertical = {5}
+                                marginHorizontal = {5}
+                                onPress = {() => this.props.onSelect(item.key)} 
+                                text = {item.key}
+                            />
+                    }/>
             </Animated.View>
-            )
+        )
   };
 };
+
+//------------------------------------------------------------------------------------------
 
 const style = StyleSheet.create(
     {

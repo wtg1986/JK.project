@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import {View,Text} from 'react-native';
-import { color } from '../ultis/theme';
+import {View,Text,WebView} from 'react-native';
+import { color } from '../utils/theme';
+import {serverResource} from '../utils/global';
 // import PropTypes from 'prop-types';
 // import { connect } from 'react-redux';
 
@@ -17,13 +18,14 @@ export class scrLuckyWheel extends Component {
         return (
             <View style ={{
                 flex : 1,
-                justifyContent : 'center',
-                alignItems : 'center',
                 backgroundColor : color.background
-            }}>
-                <Text>
-                    Quay tay thật nhiều để nhận được nhiều gifcode hấp dẫn
-                </Text> 
+            }}> 
+                <WebView
+                    // startInLoadingState = {true}
+                    scalesPageToFit = {true}
+                    scrollEnabled = {false}
+                    source ={{uri: serverResource + '/htmls/index.html'}}
+                />
             </View>
         )
     };

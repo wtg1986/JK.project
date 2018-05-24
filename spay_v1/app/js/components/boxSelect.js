@@ -1,4 +1,3 @@
-
 import {
     StyleSheet, 
     Text,
@@ -9,20 +8,26 @@ import {
 } from 'react-native';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {color} from '../ultis/theme';
 import ElementSelect from '../components/elementSelect';
+import {color} from '../utils/theme';
 
 export default class boxSelect extends Component {
     static propTypes = {
         header : PropTypes.string,
         input : PropTypes.array, // [{key,image,imageSize,title,description},...]  
         onSelect : PropTypes.func,
-        multiSelect : PropTypes.bool
+        mutilselect : PropTypes.bool
     };    
+
+//------------------------------------------------------------------------------------------
+
     static defaultProps = {
         header : 'LỰA CHỌN',
-        multiSelect : false
+        mutilselect : false
     }; 
+
+//------------------------------------------------------------------------------------------
+
     constructor(props) {
         super(props);
         this.state = { 
@@ -31,16 +36,20 @@ export default class boxSelect extends Component {
         };
     }
 
+//------------------------------------------------------------------------------------------
+
     render() {
         return (
         <View style = {style.root}>
+            
             <Text style = {style.header}> {this.props.header} </Text>
-            {this.props.input.map((inp,i) => 
+
+            {this.props.input.map( (inp,i) => 
+
                 <TouchableWithoutFeedback key = {i}
                     onPress = {e => {
-
                         let newValue
-                        if (this.props.multiSelect)
+                        if (this.props.mutilselect)
                         {
                             [ ...newValue ] = this.state.isSelect;
                             newValue[i] = !newValue[i]
@@ -53,7 +62,7 @@ export default class boxSelect extends Component {
                         this.setState ({
                             ...this.state, isSelect:newValue
                         },()=>{
-                            if (!this.props.multiSelect)
+                            if (!this.props.mutilselect)
                                 this.state.selected[0] = inp.key
                             else 
                             {
@@ -66,7 +75,8 @@ export default class boxSelect extends Component {
                             }
                             Keyboard.dismiss()
                             this.props.onSelect&&
-                            this.props.onSelect(inp.key,this.state.selected)
+                            this.props.onSelect(i,inp.key,this.state.selected)
+                            //************ */
                         })
                     }}
                 >
@@ -82,17 +92,16 @@ export default class boxSelect extends Component {
                     </View>
                 </TouchableWithoutFeedback>
             )}
-            
-        </View>
-        )
+        </View>)
     };
 };
+
+//------------------------------------------------------------------------------------------
 
 const style = StyleSheet.create(
   {
     root : {
         marginTop: 15,
-        marginHorizontal: 15,
         paddingVertical: 20,
         justifyContent :'flex-start',
         backgroundColor : color.box,

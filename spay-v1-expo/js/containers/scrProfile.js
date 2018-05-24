@@ -15,9 +15,6 @@ export class scrProfile extends Component {
         headerTintColor : color.white,
         headerBackTitle : null,
     };
-//   static propTypes = {
-//     prop: PropTypes
-//   };
 
     render() {
         console.log(this.props.avataUrl)
@@ -39,28 +36,28 @@ export class scrProfile extends Component {
                             {
                                 key : 'Email',
                                 type : 'default',
-                                default : 'Email',
+                                default : this.props.email,
                                 iconName : 'contact-mail',
                                 color : color.textGray,
                             },
                             {
                                 key : 'Passport',
                                 type : 'default',
-                                default : 'Chứng minh nhân dân',
+                                default : this.props.passport,
                                 iconName : 'passport',
                                 color : color.textGray,
                             },
                             {
                                 key : 'Username',
                                 type : 'default',
-                                default : 'Tên đầy đủ',
+                                default : this.props.username,
                                 iconName : 'account-settings',
                                 color : color.textGray,
                             },
                             {
                                 key : 'Address',
                                 type : 'default',
-                                default : 'Địa chỉ',
+                                default : this.props.address,
                                 iconName : 'home-map-marker',
                                 color : color.textGray,
                             },
@@ -125,7 +122,7 @@ const mapStateToProps = (state) => {
 // };
 
 export default connect(mapStateToProps)(scrProfile)
-// export default scrProfile
+
 
 const style = StyleSheet.create(
 {

@@ -10,7 +10,7 @@ import Gird from '../components/girdGroup';
 import BoxGamePurchase from '../components/boxGamePurchase';
 import Button from '../components/button';
 // import PopupAuth from '../components/popupAuth';
-import {imgATM,imgVisa,imgDaiLy} from '../../assets';
+import {imgATM,imgVisa,imgDaiLy,imgQrPay} from '../../assets';
 
 
 export class scrPaymentWallet extends Component {
@@ -29,16 +29,16 @@ render() {
     let money = 0;
     let method = ''
     return (
-        // <ScrollView keyboardShouldPersistTaps ='always'>
+
         <View style ={style.root}>
-            {/* <ScrollView keyboardShouldPersistTaps ='always'> */}
+            <ScrollView keyboardShouldPersistTaps ='always'>
             <View style ={{flex : 1}}>
             
                 <BoxInput
                     header = 'SỐ TIỀN MUỐN NẠP'
                     input = {[
                         {key : 'Money',
-                        type : 'default',
+                        type : 'numeric',
                         default : 'Nhập số tiền',
                         iconName : 'coin',
                         color : color.primary,
@@ -46,8 +46,8 @@ render() {
                         suggest : [{'key':'10,000,000'},{'key':'5,000,000'},{'key':'2,000,000'},{'key':'1,000,000'},
                         {'key':'500,000'},{'key':'200,000'},{'key':'100,000'},{'key':'50,000'},]},
                     ]}
-                    onEndEditing = {(value) => {
-                        money = value
+                    onEndEditing = {(inp) => {
+                        money = inp.value
                     }}
                 />
                 
@@ -72,6 +72,12 @@ render() {
                         title: 'Đại Lý SPAY',
                         description: 'Chiết khấu 5%'},
 
+                        {key: 'QrPay',
+                        image: imgQrPay,
+                        imageSize: {h:50,w:50},
+                        title: 'Mã nạp tiền',
+                        description: 'Thu phí 0%'},
+
                     ]}
                     mutilselect = {false}
                     onSelect = {(i,selectItem) => {
@@ -79,12 +85,12 @@ render() {
                     }}
                 />
 
-                 <Text style = {{fontSize:17, fontStyle:'italic', marginLeft:5, marginTop: 15,color:color.textGray}}>
+                <Text style = {{fontSize:17, fontStyle:'italic', marginLeft:5, marginTop: 15,color:color.textGray}}>
                     Số dư: <Text style = {{fontWeight:'bold', color : color.primary}}> {this.props.balance} </Text>vnđ
                 </Text>
 
                 <Text style = {{fontSize:15, fontStyle:'italic', marginLeft:5, marginTop: 15,color:color.textGray}}>
-                    Số tiền tối hiểu: 50.000 đ {'\n'}
+                    Số tiền nạp tối thiểu: 50.000 đ {'\n'}
                 </Text>
             </View>
 
@@ -92,10 +98,14 @@ render() {
             <Button text = 'TIẾP TỤC' fontSize = {17} height = {50} 
                 onPress = {()=>{
                     if (money!==0 && method==='DaiLySpay')
-                    this.props.navigation.navigate('ScrPaymentWalletAgency')
+                    // console.log(money)
+                        this.props.navigation.navigate('ScrPaymentWalletAgency',{amount: money})
+                    
+                    if (money!==0 && method==='QrPay')
+                        this.props.navigation.navigate('ScrPaymentWalletQrCode',{accountId:this.props.accountId, amount: money})
                 }}
             />
-             {/* </ScrollView> */}
+             </ScrollView>
         </View>
 
        
@@ -104,7 +114,8 @@ render() {
 };
 
 const mapStateToProps = (state) => ({
-  balance : state.balance
+  balance : state.balance,
+  accountId : state.accountId,
 })
 
 // const mapDispatchToProps = {

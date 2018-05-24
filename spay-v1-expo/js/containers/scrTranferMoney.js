@@ -35,7 +35,7 @@ export class scrTranferMoney extends Component {
                     suggest : [{'key':'097.365.1368'},{'key':'096.843.4969'},{'key':'091.272.2282'},]},
 
                     {key : 'Money',
-                    type : 'default',
+                    type : 'numeric',
                     default : 'Nhập số tiền',
                     color : color.primary,
                     unit : 'VNĐ',

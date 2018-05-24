@@ -45,7 +45,7 @@ export default class button extends Component {
 //------------------------------------------------------------------------------------------
 
     render() {
-        let {text,height,width,marginHorizontal,marginVertical,backgroundColor,textColor,fontSize,top,left} = this.props;
+        let {icon,text,height,width,marginHorizontal,marginVertical,backgroundColor,textColor,fontSize,top,left} = this.props;
         return (
             <TouchableOpacity onPress ={ () => {this.props.onPress&&this.props.onPress()} }>
                 <View style = {[style.root,{
@@ -56,11 +56,18 @@ export default class button extends Component {
                     top : top, 
                     left: left,
                     marginHorizontal: marginHorizontal,
-                    marginVertical: marginVertical
+                    marginVertical: marginVertical,
+                    flexDirection: 'row',
+                    paddingHorizontal: text !== '' ? 10 : 2,
                 }]}>
-                    <Text style = {{color:textColor,fontSize:fontSize}}>
+                    {icon}
+                    {text !== '' ? <Text style = {{
+                        color: textColor,
+                        fontSize: fontSize,
+                        marginLeft: icon ? 8 : 0,
+                    }}>
                         {text}
-                    </Text>
+                    </Text> : null}
                 </View>
             </TouchableOpacity>
         )
@@ -72,7 +79,6 @@ export default class button extends Component {
 const style = StyleSheet.create(
     {
         root : {
-            paddingHorizontal: 10,
             justifyContent :'center',
             alignItems: 'center',
             borderRadius: 10,

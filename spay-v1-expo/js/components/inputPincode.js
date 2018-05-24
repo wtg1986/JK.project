@@ -15,7 +15,8 @@ export default class inputPincode extends Component {
         this.state = { 
             pincode : '',
             inputIndex : 0,
-            inputEable : ar
+            inputEable : ar,
+            inputPart : Array(this.props.numberCount).fill(' ')
         }
     }
 
@@ -24,21 +25,47 @@ export default class inputPincode extends Component {
     // Sự kiện nhập kí tự vào textinput
     _onChangeInput = (input) =>
     {
-        let inpIndexInc = 1
-        this.setState (oldState => ({
-            inputIndex : oldState.inputIndex + inpIndexInc,
-            inputEable : oldState.inputEable.map((v,key)=>{
-                return (oldState.inputIndex + inpIndexInc === key) ? true : false;
-            }),
-            pincode : oldState.pincode + input}),()=>
-            {
+        if (input.length === 2 && this.state.inputIndex < this.props.numberCount) {
+            this.setState(oldState => {return({
+                ...oldState, 
+                inputIndex: oldState.inputIndex + 1,
+                inputPart : oldState.inputPart.map((v,key) => {
+                                return (oldState.inputIndex === key) ? input: v;
+                            }),       
+                inputEable : oldState.inputEable.map((v,key)=>{
+                                return (oldState.inputIndex + 1 === key || key === this.props.numberCount - 1) ? true : false;
+                            }),  
+            })},() => {
                 if (this.state.inputIndex < this.props.numberCount)
-                {
                     this._pinputs[this.state.inputIndex].focus()
-                } else {
-                    alert (this.state.pincode)
+                else {
+                    let result = ''
+                    this.state.inputPart.forEach(element => {
+                        result += element
+                    });
+                    result = result.replace(/ /g,'')
+                    // console.log(result)
+                    
+                    this.props.onEndEditing && this.props.onEndEditing(result)
                 }
             })
+        }
+
+        if (input.length <= 1 && this.state.inputIndex >0) {
+            this.setState(oldState => {return({
+                ...oldState, 
+                inputIndex: oldState.inputIndex - 1,
+                inputPart : oldState.inputPart.map((v,key) => {
+                                return (oldState.inputIndex === key || 
+                                        oldState.inputIndex - 1 === key ) ? ' ': v;
+                            }), 
+                inputEable : oldState.inputEable.map((v,key)=>{
+                                return (oldState.inputIndex - 1 === key) ? true : false;
+                            }),  
+            })},()=>{
+                this._pinputs[this.state.inputIndex].focus()
+            })
+        }
     }
 
 //------------------------------------------------------------------------------------------
@@ -54,10 +81,10 @@ export default class inputPincode extends Component {
                 underlineColorAndroid = 'transparent'
                 style = {style.txtPinInput}
                 keyboardType='numeric'
-                maxLength = {1}
+                maxLength = {2}
                 editable = {this.state.inputEable[i]}
                 autoFocus = {i===0 ? true : false}
-                // value =' '
+                value = {this.state.inputPart[i]}
                 // selectTextOnFocus={true}
                 onChangeText={this._onChangeInput}>
             </TextInput>)

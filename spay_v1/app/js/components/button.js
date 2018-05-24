@@ -1,15 +1,21 @@
-
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {
+    StyleSheet, 
+    Text, 
+    View, 
+    TouchableOpacity} from 'react-native';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {color} from '../ultis/theme';
+import {color} from '../utils/theme';
 
 export default class button extends Component {
+
     static propTypes = {
         fontSize : PropTypes.number, 
         text : PropTypes.string,
         height : PropTypes.number,
         width : PropTypes.number,
+        marginHorizontal: PropTypes.number,
+        marginVertical: PropTypes.number,
         backgroundColor : PropTypes.string,
         textColor : PropTypes.string,
         icon : PropTypes.object,
@@ -19,33 +25,47 @@ export default class button extends Component {
         left : PropTypes.number,
     }; 
     
+//------------------------------------------------------------------------------------------
 
     static defaultProps = {
         fontSize : 15,
         text : 'TOUCH',
         height : 32,
-        width : 64,
         backgroundColor : color.primary,
         textColor : color.white,
         shadow : true
     }   
 
+//------------------------------------------------------------------------------------------
+
     constructor(props) {
         super(props);
     }
 
+//------------------------------------------------------------------------------------------
+
     render() {
-        let {text,height,width,backgroundColor,textColor,fontSize,top,left} = this.props;
+        let {icon,text,height,width,marginHorizontal,marginVertical,backgroundColor,textColor,fontSize,top,left} = this.props;
         return (
-            <TouchableOpacity onPress = { () => {this.props.onPress()} } >
+            <TouchableOpacity onPress ={ () => {this.props.onPress&&this.props.onPress()} }>
                 <View style = {[style.root,{
                     height: height,
+                    width: width,
                     backgroundColor: backgroundColor,
                     position : (top||left) ? 'absolute' : 'relative',
-                    top : top ? top : null,
-                    left: left ? left : null,
+                    top : top, 
+                    left: left,
+                    marginHorizontal: marginHorizontal,
+                    marginVertical: marginVertical,
+                    flexDirection: 'row',
+                    justifyContent: 'center',
                 }]}>
-                    <Text style = {{color:textColor,fontSize:fontSize}}>
+                    {icon}
+                    <Text style = {{
+                        color: textColor,
+                        fontSize: fontSize,
+                        marginLeft: icon ? 8 : 0,
+                    }}>
                         {text}
                     </Text>
                 </View>
@@ -54,12 +74,12 @@ export default class button extends Component {
     };
 };
 
+//------------------------------------------------------------------------------------------
+
 const style = StyleSheet.create(
     {
         root : {
             paddingHorizontal: 10,
-            margin : 5,
-            marginHorizontal: 5,
             justifyContent :'center',
             alignItems: 'center',
             borderRadius: 10,

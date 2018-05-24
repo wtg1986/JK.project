@@ -6,7 +6,7 @@ var cashOutSchema = new schema({
         type: String,
         require: true
     },
-    cashOutCode: {
+    cashCode: {
         type: String,
         required : true
     },

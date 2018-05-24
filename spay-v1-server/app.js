@@ -4,53 +4,45 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+var serverConfig = require ('./utils/config')
+var db = require('./utils/db');
+var socket = require('./utils/socket')
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/accounts');
 var pushsRouter = require('./routes/pushs');
 
 var app = express();
 
-//Socket
-var serverHttp = require('http').Server(app);
-var socketio = require('socket.io')(serverHttp);
+//Khởi tạo kết nối tới DB.
+db.init(serverConfig.dataBaseUri)
 
-//Database
-var mongoose = require('mongoose');
-let options = {
-  db:{native_parser: true},
-  server:{poolSize: 5},
-}
-mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/spay-v1-db',options).then(
-  () => {
-    console.log('3. Connect DB Successfully in: port 27017')
-  },
-  err => {
-    console.log(`Connect failed. Error: ${err}`)
-  }
-)
+//Khở tạo socket
+socket.init(app,serverConfig.socketPort)
 
-// view engine setup
+//Cài đặt view engine
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+//Cấu hình
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//Thiết lập các router
 app.use('/', indexRouter);
 app.use('/accounts', usersRouter);
 app.use('/pushs', pushsRouter);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
+//Catch 404 and forward to error handler
+app.use((req, res, next) => {
   next(createError(404));
 });
 
-// error handler
-app.use(function(err, req, res, next) {
+// Error handler
+app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -59,54 +51,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-//Cấu hình static resscource
-app.use(express.static('public'))
-
-//Cấu hình lắng socket
-var socketPort = (process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 3002);
-serverHttp.listen(socketPort, () => console.log('1. Socket start in: port ' + socketPort));
-
-socketio.on('connection', (socket) => {
-    console.log(`Một thiết bị mới kết nối tới Server với Socket ID:${socket.id}`);
-   
-    // socket.emit('id',socket.id);
-    
-    //lắng nghe khi người dùng thoát
-    socket.on('disconnect', function() {
-        console.log(`Thiết bị [${socket.id}] ngắt kết nối`)
-        // $index = _findIndex(userOnline, ['id', socket.id]);
-        // userOnline.splice($index, 1);
-        // socketio.sockets.emit('updateUesrList', userOnline);
-    })
-
-    //lắng nghe khi có người gửi tin nhắn
-    socket.on('newMessage_client', data => {
-        //gửi lại tin nhắn cho tất cả các user dang online
-        console.log(data)
-        // socketio.sockets.emit('newMessage_server',
-        // {
-        //     id: data.id,
-        //     data: data.data
-        // });
-    })
-
-    //lắng nghe khi có người login
-    socket.on('login', data => {
-        // kiểm tra xem tên đã tồn tại hay chưa
-        // if (userOnline.indexOf(data) >= 0) {
-        //     socket.emit('loginFail'); //nếu tồn tại rồi thì gửi socket fail
-        // } else {
-        //     // nếu chưa tồn tại thì gửi socket login thành công
-        //     socket.emit('loginSuccess', data);
-        //     userOnline.push({
-        //         id: socket.id,
-        //         name: data
-        //     })
-        //     socketio.sockets.emit('updateUesrList', userOnline);// gửi danh sách user dang online
-        // }
-    }) 
-});
-
 
 module.exports = app;

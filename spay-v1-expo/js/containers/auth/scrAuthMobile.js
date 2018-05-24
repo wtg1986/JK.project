@@ -5,67 +5,111 @@ import {
     Image,
     StyleSheet,
     TouchableOpacity,
-    TextInput
+    KeyboardAvoidingView
  } from 'react-native';
- 
-import PropTypes from 'prop-types';
-import PopupAuth from '../../components/popupAuth'
-import {color} from '../../utils/theme';
-import {logoSpay,logoVTC} from '../../../assets';
 
-export default class scrAuthMobile extends Component {
+import { connect } from 'react-redux';
+import PopupAuth from '../../components/popupAuth'
+import { color } from '../../utils/theme';
+import { logoSpay,logoVTC} from '../../../assets';
+import { SecureStore } from 'expo';
+import * as api from '../../utils/api';
+
+export class scrAuthMobile extends Component {
+
+//------------------------------------------------------------------------------------------
+
     constructor(props) {
         super(props);
-        this.state = { txtMobile: 'Nhập vào số điện thoại' };
-        }
-  render() {
-    return (
-      <View style = {scrLoadingStyle.root}>
-            <View style = {scrLoadingStyle.body}>
-                <PopupAuth
-                    imgLogo = {logoSpay} 
-                    txtNotification = 'Nhập số điện thoại để tiếp tục'
-                    txtButon = 'TIẾP TỤC'
-                    enumInputType = 'NUMBER'
-                    autoFocus = {true}
-                    onAction = {(value)=>{
-                        this.props.navigation.navigate('ScrAuthPass',{mobileNumber : value})
-                    }}
-                >
-                </PopupAuth>
-            </View>
+    }
 
-          <View style = {scrLoadingStyle.bottom}>
-            <Image 
-                style={scrLoadingStyle.imgLogoVTC} 
-                source={logoVTC}
-              />
-          </View>
-      </View>
-    )
-  }
+    componentWillMount = async() => {
+        let myMobileNumber = await SecureStore.getItemAsync('myMobileNumber');
+        if (myMobileNumber) {
+            this.props.navigation.navigate('ScrAuthPassLogin',{mobileNumber : myMobileNumber})
+        }
+    }
+//------------------------------------------------------------------------------------------
+
+    _onNextClick = (value) => {
+        
+        // Check số điện thoại đã đăng ký tài khoản chưa
+        api.authCheckMobile({mobileNumber:value},res => {
+            console.log(res)
+            // 1. Đã đăng ký, chuyển đến from đăng nhập
+            if (res) {
+                this.props.navigation.navigate('ScrAuthPassLogin',{mobileNumber : value})
+                
+            // 2. Chưa đăng ký, chuyển đến from đăng ký
+            } else {
+                this.props.navigation.navigate('ScrAuthPassRegister',{mobileNumber : value})
+                // this.props.navigation.navigate('ScrAuthOTP',{mobileNumber : value})
+            }
+        })
+        
+    }
+
+//------------------------------------------------------------------------------------------
+
+    render() {
+        return (
+        <View style = {style.root}>
+        
+            <KeyboardAvoidingView behavior = "position">
+                <View style = {style.body}>
+                    <PopupAuth
+                        imgLogo = {logoSpay} 
+                        txtDescription = 'Nhập số điện thoại để tiếp tục'
+                        // txtNotification = 'Lần đầu tiên 0973651368 truy cập SPAY'
+                        // txtHyperlink1 = 'Đổi số điện thoại'
+                        txtButon = 'TIẾP TỤC'
+                        enumInputType = 'NUMBER'
+                        autoFocus = {false}
+                        onAction = {this._onNextClick}
+                    />
+                </View>
+            </KeyboardAvoidingView>
+            
+            <View style = {style.bottom}>
+                <Image 
+                    style={style.imgLogoVTC} 
+                    source={logoVTC}
+                />
+            </View>
+ 
+        </View>
+        )
+    }
 };
 
-const scrLoadingStyle = StyleSheet.create(
+//------------------------------------------------------------------------------------------
+
+export default connect()(scrAuthMobile)
+
+//------------------------------------------------------------------------------------------
+
+const style = StyleSheet.create(
   {
     root : {
-      flex: 1,
+        flex : 1,
+        backgroundColor : color.background,
+        padding : 10,
+        justifyContent : 'center',
     },
     body : {
-      flex: 1,
-      alignItems: 'center',
-      flexDirection: 'row',
-      justifyContent: 'center',
-      backgroundColor : color.background
+        marginVertical: 10,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        backgroundColor : color.background
     },
     bottom : {
-      height : 80,
-      backgroundColor : color.background
+        height : 80,
+        backgroundColor : color.background
     },
     imgLogoVTC :{
-      alignSelf: 'center', 
-      height: 30,
-      resizeMode: 'contain'
+        alignSelf: 'center', 
+        height: 36,
+        resizeMode: 'contain'
     },
   }
 )

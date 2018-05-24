@@ -7,7 +7,9 @@ import {Text,
         TouchableWithoutFeedback,
         TouchableOpacity,
         ScrollView,
-        Easing} from 'react-native';
+        Easing,
+        // KeyboardAvoidingView
+} from 'react-native';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {color} from '../utils/theme';
@@ -19,17 +21,25 @@ import Button from '../components/button';
 import Box from '../components/box';
 import {serverResource} from '../utils/global'
 import {generatedMapStyle} from '../utils/mapStyle';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
+import {SkypeIndicator,} from 'react-native-indicators';
 
 export default class name extends Component {
 
     static propTypes = {
         header : PropTypes.string,
+        latitude : PropTypes.number,
+        longitude : PropTypes.number, 
         agencys : PropTypes.array, //{agencyId,avataUri,agencyName,address,distance,latitude,longitude}
+        onSelect : PropTypes.func,
     };   
 
     static defaultProps ={
         header : 'CHỌN ĐẠI LÝ',
-        agencys : [{ 
+        agencys : 
+        [   
+            { 
                 agencyId : 1,
                 avataUri : `${serverResource}/jpgs/avata_0973651368.jpg`,
                 agencyName : 'Kenny Tran',
@@ -74,46 +84,38 @@ export default class name extends Component {
             selected : -1,
             heightTextInput : new Animated.Value(0),
             mapMode : false,
-            myLocation: null,
-            infoAgency : {}
+            loadingStatus : false,
+            textInput :'',
+            infoAgencySelected : {}
         };
     }
 
 //------------------------------------------------------------------------------------------
-    
-    componentWillMount() {
-        if (Platform.OS === 'android' && !Constants.isDevice) {
-            this.setState({
-              ...this.state,
-              errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
-            });
-        } else {
-            this._getLocationAsync();
+
+    componentDidMount() {
+        // console.log(this.props.agencys.length)
+        if (this.props.agencys.length === 0) 
+        {
+            this.setState(oldState => {return({
+                ...oldState, loadingStatus: true
+            })})
         }
     }
 
 //------------------------------------------------------------------------------------------
-    
-    _getLocationAsync = async () => {
-        let { status } = await Permissions.askAsync(Permissions.LOCATION);
-        if (status !== 'granted') {
-          this.setState({
-            ...this.state,
-            errorMessage: 'Permission to access location was denied',
-          });
-        }
-    
-        let lo = await Location.getCurrentPositionAsync({});
-        this.setState({ 
-            ...this.state,
-            location : lo
-        });
-    };
+
+    componentWillReceiveProps(nextProps) {
+        // console.log(nextProps)
+        if (nextProps.agencys.length !==0) 
+            this.setState(oldState => {return({
+                ...oldState, loadingStatus: false
+            })})
+    }
 
 //------------------------------------------------------------------------------------------
 // agencyId,avataUri,agencyName,address,distance,latitude,longitude
     _renderElementAgency = (agencyOj,isSelect) =>{
-        console.log(agencyOj.avataUri)
+        
         return (
             <View style = {[style.elementAgency, {
                 borderColor : isSelect ? color.primary : color.shadow,
@@ -174,9 +176,23 @@ export default class name extends Component {
                         style = {style.textInputMessage}
                         placeholder = 'Nhập lời nhắn cho Đại Lý'
                         onChangeText = {input => {
-                            // let [ ...newValue ] = this.state.value;
-                            // newValue[i] = input;
-                            // this.setState({...this.state, value:newValue})
+                            this.setState(oldState=>{return({
+                                ...oldState,textInput:input
+                            })})
+                        }}
+                        onEndEditing = {() => {
+
+                            let agencySelected = {
+                                agencyId: agencyOj.agencyId,
+                                agencyName: agencyOj.agencyName,
+                                message: this.state.textInput
+                            }
+
+                            this.setState(oldState => {return({
+                                ...oldState, infoAgencySelected: agencySelected
+                            })})
+
+                            this.props.onSelect && this.props.onSelect(agencySelected)
                         }}/>
 
                 </Animated.View>}
@@ -188,27 +204,27 @@ export default class name extends Component {
 //------------------------------------------------------------------------------------------
     _renderListAgency = (data) => {
         return(
-            <ScrollView keyboardShouldPersistTaps ='always'>
+            <KeyboardAwareScrollView>
             {
                 data.map((oj,i)=>
-                <TouchableWithoutFeedback key = {i} onPress = {()=>{
+                    <TouchableWithoutFeedback key = {i} onPress = {()=>{
 
-                    Animated.timing(this.state.heightTextInput,{easing: Easing.easeOutElastic, 
-                                                                duration: 5,
-                                                                toValue: 0})
-                            .start(()=>{
-                                this.setState(oldState => {return({...oldState, selected:i})},()=>{
-                                Animated.timing(this.state.heightTextInput,{easing: Easing.easeOutElastic, 
-                                                                            duration: 300,
-                                                                            toValue: 32})
-                                        .start()
+                        Animated.timing(this.state.heightTextInput,{easing: Easing.easeOutElastic, 
+                                                                    duration: 5,
+                                                                    toValue: 0})
+                                .start(()=>{
+                                    this.setState(oldState => {return({...oldState, selected:i})},()=>{
+                                    Animated.timing(this.state.heightTextInput,{easing: Easing.easeOutElastic, 
+                                                                                duration: 300,
+                                                                                toValue: 32})
+                                            .start()
+                            })
                         })
-                    })
-                }}>
-                    {this._renderElementAgency(oj,this.state.selected == i)}
-                </TouchableWithoutFeedback>)
+                    }}>
+                        {this._renderElementAgency(oj,this.state.selected == i)}
+                    </TouchableWithoutFeedback>)   
             }
-            </ScrollView>
+            </KeyboardAwareScrollView>
         )
     }
 
@@ -223,10 +239,10 @@ export default class name extends Component {
                 customMapStyle = {generatedMapStyle}
                 showsUserLocation={true}
                 // followsUserLocation = {true}
-                // showsMyLocationButton={true}
+                showsMyLocationButton={true}
                 region = {{
-                    latitude: this.state.location.coords.latitude,
-                    longitude: this.state.location.coords.longitude,
+                    latitude: this.props.latitude,
+                    longitude: this.props.longitude,
                     latitudeDelta: 0.0922,
                     longitudeDelta: 0.0421,
                 }}>
@@ -283,9 +299,12 @@ export default class name extends Component {
                 </TouchableOpacity>
 
                 {
-                    !this.state.mapMode ?
-                    this._renderListAgency(this.props.agencys):
-                    this._renderMapAgency(this.props.agencys)
+                    this.state.loadingStatus ?
+                        <SkypeIndicator color = {color.primary} />
+                    :
+                        (!this.state.mapMode ?
+                        this._renderListAgency(this.props.agencys):
+                        this._renderMapAgency(this.props.agencys))
                 }
             </Box>
         )

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {View,TouchableOpacity,Text} from 'react-native';
-import { color} from '../ultis/theme';
+import { color} from '../utils/theme';
 // import PropTypes from 'prop-types';
 // import { connect } from 'react-redux';
 import BoxInput from '../components/boxInput';

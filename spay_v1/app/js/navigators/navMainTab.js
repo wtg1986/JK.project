@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { TabNavigator, TabBarBottom} from 'react-navigation';
 
 import Icon from 'react-native-vector-icons/Ionicons';
-import { color } from '../ultis/theme';
+import { color } from '../utils/theme';
 import ScrHome from '../containers/scrHome'
 import ScrDiscovery from '../containers/scrDiscovery'
 import ScrNotification from '../containers/scrNotification'

@@ -4,17 +4,19 @@ import PropTypes from 'prop-types';
 // import { connect } from 'react-redux';
 import { TabNavigator, TabBarBottom} from 'react-navigation';
 
-import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { color } from '../utils/theme';
 import ScrHome from '../containers/scrHome'
-import ScrDiscovery from '../containers/scrDiscovery'
+// import ScrDiscovery from '../containers/scrDiscovery'
 import ScrNotification from '../containers/scrNotification'
 import ScrSetting from '../containers/scrSetting'
+import ScrAgency from '../containers/scrAgency';
 
 // Router Tab
 const TabRoutes = {
   ScrHome : ScrHome,
-  ScrDiscovery : ScrDiscovery,
+  // ScrDiscovery : ScrDiscovery,
+  ScrAgency : ScrAgency,
   ScrNotification : ScrNotification,
   ScrSetting : ScrSetting
 }
@@ -26,19 +28,22 @@ const Config = {
       let iconName;
       switch (routeName) {
         case 'ScrHome':
-          iconName = 'ios-home';
+          iconName = 'security-home';
           break;
-        case 'ScrDiscovery':
-          iconName = 'ios-pin';
+        // case 'ScrDiscovery':
+        //   iconName = 'ios-pin';
+        //   break;
+        case 'ScrAgency':
+          iconName = 'motorbike';
           break;
         case 'ScrNotification':
-          iconName = 'ios-notifications';
+          iconName = 'bell';
           break;
         case 'ScrSetting':
-         iconName = 'ios-settings';
+         iconName = 'settings';
           break;
       }
-      return <Icon name = {focused ? iconName : iconName + '-outline'} size={32} color={tintColor} />;
+      return <Icon name = {focused ? iconName : iconName + ''} size={32} color={tintColor} />;
     },
   }),
   tabBarComponent: TabBarBottom,

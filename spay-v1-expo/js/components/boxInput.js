@@ -14,6 +14,7 @@ import PropTypes from 'prop-types';
 import Button from '../components/button';
 import SelectBarSuggest from '../components/selectBarSuggest';
 import ElementSelect  from '../components/elementSelect';
+import numeral from 'numeral';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {color} from '../utils/theme';
 
@@ -94,8 +95,11 @@ export default class boxInput extends Component {
                             borderColor: this.state.focusIndex === i ? inp.color : color.textGray, 
                             color: inp.color}]}
                         onChangeText = {input => {
+                            
                             let [ ...newValue ] = this.state.value;
-                            newValue[i] = input;
+
+                            newValue[i] = inp.type === 'numeric' ? numeral(input).format('0,0') : input;
+
                             this.setState({...this.state, value:newValue})
                         }}
                         onFocus = {() => { 

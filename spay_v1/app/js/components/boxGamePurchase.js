@@ -1,15 +1,19 @@
-
-import {StyleSheet, Text, View, Keyboard} from 'react-native';
+import {
+    StyleSheet, 
+    Text, 
+    View, 
+    Keyboard} from 'react-native';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {color} from '../ultis/theme';
 import GirdGroup from '../components/girdGroup';
 import Entypo from 'react-native-vector-icons/Entypo';
 import BoxInput from '../components/boxInput';
-import * as Assets from '../../assets';
 import ElementPackageGamePurchase from '../components/elementPackageGamePurchase';
+import {color} from '../utils/theme';
+import * as Assets from '../../assets';
 
 export default class boxGamePurchase extends Component {
+
     static propTypes = {
         header : PropTypes.string,
         input : PropTypes.array,
@@ -17,18 +21,23 @@ export default class boxGamePurchase extends Component {
         packageMoney : PropTypes.array, // image/moneyInGame,unitText,moneyCash,
         onChangeInput : PropTypes.func
     } 
+
+//------------------------------------------------------------------------------------------
+
     static defaultProps = {
         header : 'THÔNG TIN NẠP TỬ THANH SONG KIẾM',
         input : [
             {key : 'ScoinID',
             type : 'default',
             default : 'Nhập tài khoản ScoinID',
+            iconName : 'account-circle',
             color : color.primary,
             suggest : [{'key':'popilala'},{'key':'jokerMrk'},{'key':'KennyJ'},]},
             
             {key : 'ServerName',
             type : 'default',
             default : 'Nhập server Game',
+            iconName : 'server-network',
             color : color.primary,
             suggest : [{'key':'S1'},{'key':'S2'},{'key':'S3'},]},
         ],
@@ -68,6 +77,9 @@ export default class boxGamePurchase extends Component {
             }
         ]
     }
+
+//------------------------------------------------------------------------------------------
+
     constructor(props) {
         super(props);
         this.state = { 
@@ -76,27 +88,27 @@ export default class boxGamePurchase extends Component {
         this._data = []
     }
     
+//------------------------------------------------------------------------------------------
+
     render() {
-        // let ar = Array(7).fill(0)
+
         const {header, input, description, packageMoney, onChangeInput} = this.props
+
         return (
-            <BoxInput
+            <BoxInput 
                 header = {header}
                 input = {input}
                 onEndEditing = {(res)=>{
                     this._data[res.key] = res.value
                     onChangeInput && onChangeInput(this._data)
-                }} 
-                // onFocus = {(obj)=>{
-                // }}
-            >
+                }}>
 
                 <Text style = {style.textDescription}>
                     {description}
                 </Text>
 
                 <GirdGroup style = {{marginHorizontal: 20}}
-                    columns = {3} elementMargin = {2.5} >
+                    columns = {3} elementMargin = {2.5}>
                     {packageMoney.map((oj,i)=>
                         <ElementPackageGamePurchase key = {i}
                             index = {i}
@@ -106,7 +118,6 @@ export default class boxGamePurchase extends Component {
                             moneyInGameUnit = {oj.moneyInGameUnit} 
                             discount = {oj.discount}
                             moneyCash = {oj.moneyCash}
-
                             isSelect = {this.state.selected === i ? true : false}
                             tintColor = {color.primary}
                             onSelect = {index => {
@@ -122,6 +133,8 @@ export default class boxGamePurchase extends Component {
         )
     };
 };
+
+//------------------------------------------------------------------------------------------
 
 const style = StyleSheet.create(
     {

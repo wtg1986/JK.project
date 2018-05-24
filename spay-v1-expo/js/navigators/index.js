@@ -25,14 +25,15 @@ import ScrPaymentGamePurchase from '../containers/scrPaymentGamePurchase';
 import ScrQRCodeScanHelp from '../containers/scrQRCodeScanHelp';
 import ScrCashOutWalletAgency from '../containers/scrCashOutWalletAgency';
 import ScrCashOutWalletCode from '../containers/scrCashOutWalletCode';
-import ScrCashOutWalletConfirm from '../containers/scrCashOutWalletConfirm';
+import ScrPaymentWalletQrCode from '../containers/scrPaymentWalletQrCode';
+import ScrChat from '../containers/scrChat';
 
 //Test cac componet 
-import Test from '../components/boxInput';
+import Test from '../containers/scrTmp';
 
 export default SwitchNavigator(
   {
-    Test: Test,
+    Test: ScrChat,
     Loading: Loading,
     // Onboarding: NavOnboarding,
     Auth: NavAuth,
@@ -57,7 +58,8 @@ export default SwitchNavigator(
       ScrQRCodeScanHelp : ScrQRCodeScanHelp,
       ScrCashOutWalletAgency : ScrCashOutWalletAgency,
       ScrCashOutWalletCode : ScrCashOutWalletCode,
-      ScrCashOutWalletConfirm : ScrCashOutWalletConfirm
+      ScrPaymentWalletQrCode : ScrPaymentWalletQrCode,
+      ScrChat : ScrChat
     },{
       initialRouteName: 'MainTab',
       mode :'card',

@@ -8,6 +8,7 @@ export const imgVisa = require ('./pngs/imgVisa.png')
 export const imgDaiLy = require ('./pngs/imgDaiLy.png')
 export const imgGiftBox = require ('./pngs/imgGiftBox.png')
 export const imgBarCode = require ('./pngs/imgBarCode.png')
+export const imgQrPay = require ('./pngs/imgQrPAY.png')
 
 import {serverResource} from '../js/utils/global';
 

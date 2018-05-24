@@ -1,7 +1,7 @@
 import {StyleSheet, Text,View} from 'react-native';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {color} from '../ultis/theme';
+import {color} from '../utils/theme';
 export default class name extends Component {
     static propTypes = {
 

@@ -5,7 +5,10 @@ import {View,Text,TouchableOpacity,StyleSheet,Image} from 'react-native';
 // import PropTypes from 'prop-types';
 // import { connect } from 'react-redux';
 
-import { color } from '../ultis/theme';
+import * as firebase from 'firebase';
+
+import { color } from '../utils/theme';
+import {logoSpay,logoVTC} from '../../assets';
 
 import {  BallIndicator,
     BarIndicator,
@@ -17,13 +20,41 @@ import {  BallIndicator,
     UIActivityIndicator,
     WaveIndicator, } from 'react-native-indicators';
 
+// Initialize Firebase
+const firebaseConfig = {
+    apiKey: "AIzaSyBfbVUoW3PIPT79EvcGl4kFU5Otcgdi-z0",
+    authDomain: "spay-v1.firebaseapp.com",
+    databaseURL: "https://spay-v1.firebaseio.com",
+    projectId: "spay-v1",
+    storageBucket: "spay-v1.appspot.com",
+    messagingSenderId: "298093479886"
+  };
+
 export class scrLoading extends Component {
 
     constructor(props) {
         super(props);
         
-        setTimeout(() => { this.props.navigation.navigate('Auth') }, 2000);
+        setTimeout(() => { 
+            firebase.auth().signInWithPhoneNumber('+84973651368', appVerifier)
+            .then(function (confirmationResult) {
+            // SMS sent. Prompt user to type the code from the message, then sign the
+            // user in with confirmationResult.confirm(code).
+            window.confirmationResult = confirmationResult;
+            }).catch(function (error) {
+            // Error; SMS not sent
+            // ...
+            });
+            
+            // this.props.navigation.navigate('Auth') 
+        }, 2000);
     }
+
+    componentDidMount(){
+        firebase.initializeApp(firebaseConfig);
+        console.log('init')
+    }
+    
 
     render() {
     return (
@@ -31,7 +62,7 @@ export class scrLoading extends Component {
         <View style = {scrLoadingStyle.body}>
             <Image 
                 style={scrLoadingStyle.imgLogoSpay} 
-                source={require('../../assets/logos/logoSpay.png')}
+                source={logoSpay}
             />
             <Text style = {scrLoadingStyle.textLogoSpay} > AN TOÀN - TIỆN DỤNG </Text>
             <View style = {{marginTop:50}}>
@@ -42,7 +73,7 @@ export class scrLoading extends Component {
         <View style = {scrLoadingStyle.bottom}>
             <Image 
                 style={scrLoadingStyle.imgLogoVTC} 
-                source={require('../../assets/logos/logoVTC.png')}
+                source={logoVTC}
             />
         </View>
     </View>

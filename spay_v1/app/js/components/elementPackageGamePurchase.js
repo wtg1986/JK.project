@@ -1,7 +1,13 @@
-import {StyleSheet, Text, View, Image,TouchableWithoutFeedback} from 'react-native';
+import {
+    StyleSheet, 
+    Text, 
+    View, 
+    Image,
+    TouchableWithoutFeedback
+} from 'react-native';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {color} from '../ultis/theme';
+import {color} from '../utils/theme';
 import WImage from '../components/fullWidthImage';
 
 export default class elementPackageGamePurchase extends Component {
@@ -18,31 +24,45 @@ export default class elementPackageGamePurchase extends Component {
         isSelect : PropTypes.bool,
         onSelect : PropTypes.func
     };    
+
+//------------------------------------------------------------------------------------------
+
     constructor(props) {
         super(props);
         // this.state = { 
         //     isSelect : this.props.isSelect,
         // }; 
     }
-    
+
+//------------------------------------------------------------------------------------------
+
     render() {
-        const {isSelect,index,image,imageSize,moneyInGame,moneyInGameUnit,moneyCash,discount,tintColor,onSelect} = this.props
-        // const isSelect = this.state.isSelect
+        const {
+            isSelect,
+            index,
+            image,
+            imageSize,
+            moneyInGame,
+            moneyInGameUnit,
+            moneyCash,
+            discount,
+            tintColor,
+            onSelect
+        } = this.props
+
         return (
-            <TouchableWithoutFeedback onPress = {()=>{
-                onSelect && onSelect(index)
-            }}>
-                <View style = {[style.root,{
-                    borderColor : isSelect ? tintColor:color.shadow,
-                    // borderWidth : isSelect ? 2 : 1
-                }]}>
+            <TouchableWithoutFeedback onPress = {()=>{ onSelect && onSelect(index) }}>
+
+                <View style = {[style.root,{ borderColor: isSelect ? tintColor : color.shadow,}]}>
+                    
                     <View style = {style.moneyInGameGroup}>
-                        <WImage style ={[style.image, {width : imageSize.w,}]}
-                            source = {image}
-                        />
+                    
+                        <WImage style ={[style.image, {width : imageSize.w,}]} source = {image}/>
+                    
                         <Text style ={[style.textMoneyInGame,{color : color.textDark,}]}>
                             {moneyInGame}{moneyInGameUnit}
                         </Text>
+
                         {
                             discount ?
                             <View style = {style.discountBorder}>
@@ -50,7 +70,9 @@ export default class elementPackageGamePurchase extends Component {
                             </View>
                             :null
                         }
+
                     </View>
+
                     <View style ={[style.moneyCashGroup,{
                         backgroundColor : isSelect ? tintColor : null,
                         borderColor : isSelect ? tintColor : color.shadow
@@ -61,12 +83,16 @@ export default class elementPackageGamePurchase extends Component {
                             {moneyCash}đ
                         </Text>
                     </View>  
+
                 </View>
+
             </TouchableWithoutFeedback>
         )
     };
 };
-    
+
+//------------------------------------------------------------------------------------------
+
 const style = StyleSheet.create(
     {
         root :{

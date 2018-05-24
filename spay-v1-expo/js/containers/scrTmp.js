@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import {View} from 'react-native';
+import { View,Text } from 'react-native';
 import { color } from '../utils/theme';
+import ElementAgency from '../components/elementAgency';
 // import PropTypes from 'prop-types';
 // import { connect } from 'react-redux';
 
@@ -18,11 +19,9 @@ export class scrName extends Component {
                 backgroundColor : color.background,
                 padding : 10,
                 justifyContent : 'center',
-                alignItems : 'center'
+                // alignItems : 'center'
             }}>
-                <Text>
-                    New Screen
-                </Text> 
+                <ElementAgency/>
             </View>
         )
     };

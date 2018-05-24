@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "spay-v1-expo",
-    "description": "This project is really great.",
+    "description": "Dự án Ví điện tử thuộc VTC-Mobile",
     "slug": "spay-v1-expo",
     "privacy": "public",
     "sdkVersion": "25.0.0",
@@ -16,7 +16,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.vtcmobile.spay"
+      "bundleIdentifier": "com.vtcmobile.spay.iosv1"
     }
   }
 }

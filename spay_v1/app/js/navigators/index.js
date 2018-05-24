@@ -20,6 +20,12 @@ import ScrRadarCode from '../containers/scrRadarCode';
 import ScrSellCardCode from '../containers/scrSellCardCode';
 import ScrSetting from '../containers/scrSetting';
 import ScrTranferMoney from '../containers/scrTranferMoney';
+import ScrPaymentWalletAgency from '../containers/scrPaymentWalletAgency';
+import ScrPaymentGamePurchase from '../containers/scrPaymentGamePurchase';
+import ScrQRCodeScanHelp from '../containers/scrQRCodeScanHelp';
+import ScrCashOutWalletAgency from '../containers/scrCashOutWalletAgency';
+import ScrCashOutWalletCode from '../containers/scrCashOutWalletCode';
+import ScrPaymentWalletQrCode from '../containers/scrPaymentWalletQrCode';
 
 //Test cac componet 
 import Test from '../components/boxInput';
@@ -30,7 +36,7 @@ export default SwitchNavigator(
     Loading: Loading,
     // Onboarding: NavOnboarding,
     Auth: NavAuth,
-    Main: StackNavigator( {
+    Main: StackNavigator({
       MainTab: NavMainTab,
       ScrProfile: ScrProfile,
       ScrPaymentWallet : ScrPaymentWallet,
@@ -46,7 +52,12 @@ export default SwitchNavigator(
       ScrSellCardCode : ScrSellCardCode,
       ScrBookHomeStay : ScrBookHomeStay,
       ScrLinkBlockchain : ScrLinkBlockchain,
-      
+      ScrPaymentGamePurchase : ScrPaymentGamePurchase,
+      ScrPaymentWalletAgency : ScrPaymentWalletAgency,
+      ScrQRCodeScanHelp : ScrQRCodeScanHelp,
+      ScrCashOutWalletAgency : ScrCashOutWalletAgency,
+      ScrCashOutWalletCode : ScrCashOutWalletCode,
+      ScrPaymentWalletQrCode : ScrPaymentWalletQrCode,
     },{
       initialRouteName: 'MainTab',
       mode :'card',
@@ -54,6 +65,6 @@ export default SwitchNavigator(
     }) 
   },
   {
-    initialRouteName: 'Main',
+    initialRouteName: 'Loading',
   }
 );

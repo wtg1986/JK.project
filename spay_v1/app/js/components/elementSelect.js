@@ -1,11 +1,16 @@
-
-import {StyleSheet, Text, View, Image} from 'react-native';
+import {
+    StyleSheet, 
+    Text, 
+    View, 
+    Image
+} from 'react-native';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {color} from '../ultis/theme';
+import {color} from '../utils/theme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default class elementSelect extends Component {
+
     static propTypes = {
         imageSize : PropTypes.object,
         title : PropTypes.string,
@@ -14,11 +19,15 @@ export default class elementSelect extends Component {
         isSelect : PropTypes.bool
     };    
     
+//------------------------------------------------------------------------------------------
+
     constructor(props) {
         super(props);
         // this.state = { 
         // };
     }
+
+//------------------------------------------------------------------------------------------
 
     render() {
         return (
@@ -26,7 +35,8 @@ export default class elementSelect extends Component {
                             backgroundColor : this.props.isSelect ? color.primary : color.box,
                             borderColor : this.props.isSelect ? color.primary : color.shadow,
                             }]}>
-                <Image  style = {[style.image, {height : this.props.imageSize.h,width : this.props.imageSize.w,}]} 
+
+                <Image  style = {[style.image, {height: this.props.imageSize.h, width: this.props.imageSize.w,}]} 
                         source = {this.props.image}/>
 
                 <View style = {{flex:1, justifyContent:'center',paddingHorizontal : 6}}> 
@@ -45,6 +55,8 @@ export default class elementSelect extends Component {
         )
     };
 };
+
+//------------------------------------------------------------------------------------------
 
 const style = StyleSheet.create(
     {

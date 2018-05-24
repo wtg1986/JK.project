@@ -8,7 +8,7 @@ var remotePush = require('../utils/remotePush')
 //Lấy toàn bộ danh sách Account
 //---------------------------------------------------------------------------------------------------
 router.get('/', (req, res, next) => {
-
+  
   account.find({}).limit(100).sort({createTime:1}).select({
     // accountId: 1,
     // accountType: 1,
@@ -299,7 +299,7 @@ router.post('/cashoutCode', (req, res, next) => {
     //Tạo giao dịch rút tiền
     const newCashOut = new cashOut({
       accountId : accountId,
-      cashOutCode : uniqid,
+      cashCode : uniqid,
       amount : amount,
     })
 
@@ -324,7 +324,7 @@ router.post('/cashoutCode', (req, res, next) => {
                 } else {
                   res.json({
                     error: 0,
-                    data: null,
+                    data: uniqid,
                     message: `successfully` 
                   })
                 }
@@ -342,7 +342,7 @@ router.post('/cashinCode', (req, res, next) => {
   let { accountId, cashCode } = req.body
   
   //Lấy CashCode
-  cashOut.findOne({cashOutCode:cashCode, state: 0},(err,code)=>{
+  cashOut.findOne({cashCode:cashCode, state: 0},(err,code)=>{
     
     //Nếu lỗi
     if (err) {
@@ -368,7 +368,7 @@ router.post('/cashinCode', (req, res, next) => {
       }
 
       //Cập nhật mã code
-      cashOut.findOneAndUpdate({"cashOutCode": cashCode}, {"$set": {"state":1}})
+      cashOut.findOneAndUpdate({"cashCode": cashCode}, {"$set": {"state":1}})
       .exec((err, c) => {
           if(err) {
             res.json({
@@ -456,6 +456,86 @@ router.post('/updatePushToken', (req, res, next) => {
       })
     }
   });
+})
+
+//Chuyển khoản tiền cho người khác
+//input : accountId, partnerId, amount
+//---------------------------------------------------------------------------------------------------
+router.post('/tranferMoney', (req, res, next) => {
+
+  let { accountId, partnerId, amount } = req.body
+  let resObj = {}
+
+  account.findOneAndUpdate({ "accountId": accountId }, { "$inc": {
+    "balance": -amount}})
+  .exec(err => {
+    if(err) {
+      res.json({
+        error: 999,
+        data: null,
+        message: `error is: ${err}`
+      })
+    } else {
+      account.findOneAndUpdate({ "accountId": partnerId }, { "$inc": {
+        "balance": amount}})
+      .exec(err => {
+        if(err) {
+          res.json({
+            error: 999,
+            data: null,
+            message: `error is: ${err}`
+          })
+        } else {
+          res.json({
+            error: 0,
+            data: null,
+            message: `successfully`
+          })
+        }
+      });
+    }})
+})
+
+//Check QR-CODE
+//input : cashCode
+//---------------------------------------------------------------------------------------------------
+router.get('/checkCode', (req, res, next) => {
+  let {cashCode} = req.query
+ 
+  cashOut.findOne({cashCode:cashCode},(err,code)=>{
+    
+    if (err) {
+      res.json({
+        error: 999,
+        data: null,
+        message: `error is: ${err}`
+      })
+      return
+    }
+    
+    if (code === null) {
+      res.json({
+        error: 3,
+        data: null,
+        message: `Mã Code không tồn tại`
+      })
+      return
+    }
+
+    if (code.state === 1) {
+      res.json({
+        error: 4,
+        data: null,
+        message: `Mã code này đã sử dụng`
+      })
+      return
+    }
+    res.json({
+      error: 0,
+      data: code,
+      message: `successfully`
+    })
+  })
 })
 
 module.exports = router;

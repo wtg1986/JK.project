@@ -13,7 +13,7 @@ import ScrAuthResult from '../containers/auth/scrAuthResult'
 export const authRoutes =  
 {
   ScrAuthMobile : ScrAuthMobile,
-  ScrAuthPass : ScrAuthMobile,
+  ScrAuthPass : ScrAuthPass,
   ScrAuthPincode : ScrAuthPincode,
   ScrAuthResult : ScrAuthResult
 }

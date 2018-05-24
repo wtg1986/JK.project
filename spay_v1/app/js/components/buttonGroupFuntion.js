@@ -1,13 +1,19 @@
-
-import {StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import {
+    StyleSheet, 
+    Text, 
+    View, 
+    TouchableOpacity, 
+    Dimensions} from 'react-native';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {color} from '../ultis/theme';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import GirdGroup from '../components/girdGroup';
+import {color} from '../utils/theme';
 
 export default class buttonGroupFuntion extends Component {
+
     static propTypes = {
         iconLabel : PropTypes.array.isRequired,
         iconColor : PropTypes.array.isRequired,
@@ -15,105 +21,90 @@ export default class buttonGroupFuntion extends Component {
         badgeColor : PropTypes.object,
         onPress : PropTypes.array,
     };    
+
+//------------------------------------------------------------------------------------------
+    
     constructor(props) {
         super(props);
+        let {height, width} = Dimensions.get('window');
+        this._oWidth = width
+        this._columns = 4
+        this.state = {
+        }
     }
+
+//------------------------------------------------------------------------------------------
     
+    _renderIcon = (family, name, color) => {
+        switch (family) {
+            case 'Entypo':
+                return  <Entypo 
+                            name = {name} 
+                            size = {46} 
+                            color= {color} > 
+                        </Entypo>
+              break;
+            case 'MaterialCommunityIcons':
+                return  <MaterialCommunityIcons 
+                            name = {name} 
+                            size = {46} 
+                            color= {color} > 
+                        </MaterialCommunityIcons>
+              break;
+            case 'FontAwesome':
+                return  <FontAwesome 
+                            name = {name} 
+                            size = {46} 
+                            color= {color} > 
+                        </FontAwesome>
+              break;
+            return null
+        }
+    }
+
+//------------------------------------------------------------------------------------------
+
+    _renderButtonFuntion = (i,icon,label) => {
+        let w = (this._oWidth - 60) / this._columns
+        let h = w + 15
+        return (
+            <TouchableOpacity onPress = {()=>{
+                this.props.onPress[i] && this.props.onPress[i]()
+            }} >
+                <View style ={{width:w, height:h, alignItems: 'stretch'}}>
+                    <View style ={{flex:1.5, justifyContent:'center',alignItems: 'center',}}>
+                        {icon}
+                    </View>
+                    <View style ={{flex:1, justifyContent:'flex-start', paddingHorizontal:2}}>
+                        <Text style = {{textAlign:'center', color:color.textDark}}>
+                            {label}
+                        </Text>
+                    </View>
+                </View>
+            </TouchableOpacity>
+        )
+    }
+
+//------------------------------------------------------------------------------------------
+
     render() {
 
-        const {iconLabel, iconLabelColor, badge, badgeColor,onPress} = this.props;
+        const {iconLabel, iconColor, badge, badgeColor,onPress} = this.props;
 
         return (
-            <View style={style.root}>
-              {
-                iconLabel.map((oj,i)=> {
-                  let x = i%3
-                  let y = Math.floor(i/3)
-
-                  let icon = () => {
-                    switch (oj.family) {
-                      case 'Entypo':
-                          return <Entypo 
-                                    style ={{textAlign:'center'}} 
-                                    name = {oj.icon} 
-                                    size= {40} 
-                                    color={this.props.iconColor[i]} > 
-                                </Entypo>
-                        break;
-                      case 'MaterialCommunityIcons':
-                          return <MaterialCommunityIcons 
-                                    style ={{textAlign:'center'}} 
-                                    name = {oj.icon} 
-                                    size= {40} 
-                                    color={this.props.iconColor[i]} > 
-                                </MaterialCommunityIcons>
-                        break;
-                      case 'FontAwesome':
-                          return <FontAwesome 
-                                  style ={{textAlign:'center'}} 
-                                  name = {oj.icon} 
-                                  size= {40} 
-                                  color={this.props.iconColor[i]} > 
-                              </FontAwesome>
-                        break;
-                      return null
-                    }
-                  }
-
-                  return (<TouchableOpacity 
-                            key = {i} 
-                            style = {[style.button , {left:x*110,top:y*100 }]}
-                            onPress = {onPress ? onPress[i] : null}
-                          >  
-
-                          {/* Icon Button */}
-                          {icon()}
-                                    
-                          {/* Text Button */}
-                          <Text style = {[style.label,{color:color.textGray}]} >
-                              {oj.label}
-                          </Text>
-                  </TouchableOpacity>)
-                })
-              }
-            </View>
+            <GirdGroup columns = {this._columns} elementMargin = {2.5}>
+                {
+                    iconLabel.map((oj,i) => this._renderButtonFuntion(i,
+                        this._renderIcon(oj.family,oj.icon,iconColor[i]),oj.label,))
+                }   
+            </GirdGroup>
         )
     };
 };
 
+//------------------------------------------------------------------------------------------
+
 const style = StyleSheet.create(
     {
-        root : {
-            height : 300,
-            width : 300,
-            marginTop: 20,
-            alignSelf: 'center',
-            // backgroundColor:'red'
-        },
-
-        button : {
-            // backgroundColor :'#E4E8EA',
-            height : 80,
-            width : 80,
-            position: 'absolute',
-            justifyContent : 'flex-start',
-            alignItems: 'center',
-            borderRadius: 10,
-        },
-
-        label : {
-            marginTop: 3,
-            fontSize: 13,
-            width : 80,
-            textAlign : 'center',
-        },
-
-        badge : {
-            borderRadius : 10,
-            right: 0,
-            position: 'absolute',
-            // padding: 2,
-        }
-
     }
-  )
+)

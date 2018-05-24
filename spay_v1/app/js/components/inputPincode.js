@@ -1,7 +1,10 @@
+import { 
+    View,
+    TextInput,
+    StyleSheet 
+} from 'react-native';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View,TextInput,StyleSheet } from 'react-native';
-// import { connect } from 'react-redux';
 
 export default class inputPincode extends Component {
 
@@ -13,9 +16,10 @@ export default class inputPincode extends Component {
             pincode : '',
             inputIndex : 0,
             inputEable : ar
-            //  [true,false,false,false,false,false]
         }
     }
+
+//------------------------------------------------------------------------------------------
 
     // Sự kiện nhập kí tự vào textinput
     _onChangeInput = (input) =>
@@ -24,7 +28,6 @@ export default class inputPincode extends Component {
         this.setState (oldState => ({
             inputIndex : oldState.inputIndex + inpIndexInc,
             inputEable : oldState.inputEable.map((v,key)=>{
-                // console.log(key)
                 return (oldState.inputIndex + inpIndexInc === key) ? true : false;
             }),
             pincode : oldState.pincode + input}),()=>
@@ -38,6 +41,8 @@ export default class inputPincode extends Component {
             })
     }
 
+//------------------------------------------------------------------------------------------
+
     //Hàm render component TextInput 
     _renderInputNumber = () => {
         return (
@@ -45,6 +50,8 @@ export default class inputPincode extends Component {
             <TextInput
                 key = {i}
                 ref = {cpn => { this._pinputs[i] = cpn }}
+                autoCorrect = {false}
+                underlineColorAndroid = 'transparent'
                 style = {style.txtPinInput}
                 keyboardType='numeric'
                 maxLength = {1}
@@ -56,12 +63,25 @@ export default class inputPincode extends Component {
             </TextInput>)
         )
     }
+
+//------------------------------------------------------------------------------------------
     
     _pinputs = [];
     
     render() {
-    return (
-        <View style = {{
+        return (
+            <View style = {style.root}>
+                {this._renderInputNumber()}
+            </View> 
+        )
+  };
+};
+
+//------------------------------------------------------------------------------------------
+
+const style = StyleSheet.create(
+    {
+        root:{
             flexDirection:'row',
             justifyContent:'space-around', 
             marginTop:10 ,
@@ -69,23 +89,15 @@ export default class inputPincode extends Component {
             // backgroundColor:'#CECECE',
             marginRight : 20,
             marginLeft : 20
-        }}>
-            {this._renderInputNumber()}
-        </View> 
-    )
-  };
-};
-
-const style = StyleSheet.create(
-    {
-      txtPinInput:{
-          backgroundColor:'#f7f6f6',
-          color:'#272727',
-          width : 36,
-          borderRadius : 6,
-          borderWidth : 1,
-          borderColor : '#D6D6D6',
-          textAlign : 'center',
-          fontSize : 26,
-      }
+        },
+        txtPinInput:{
+            backgroundColor:'#f7f6f6',
+            color:'#272727',
+            width : 36,
+            borderRadius : 6,
+            borderWidth : 1,
+            borderColor : '#D6D6D6',
+            textAlign : 'center',
+            fontSize : 26,
+        }
     })

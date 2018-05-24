@@ -1,24 +1,35 @@
 
-import {StyleSheet, Text,View} from 'react-native';
+import {
+    StyleSheet, 
+    Text,
+    View
+} from 'react-native';
 import React, { Component, Children } from 'react';
 import PropTypes from 'prop-types';
-import {color} from '../ultis/theme';
+import {color} from '../utils/theme';
 
 export default class girdGroup extends Component {
+
     static propTypes = {
         columns : PropTypes.number,
-        // rowCount : PropTypes.number,
         elementMargin: PropTypes.number
     };    
+
+//------------------------------------------------------------------------------------------
+
     constructor(props) {
         super(props);
-        // this.state = { 
-        // };
+        this.state = { 
+        };
     }
-    
+
+//------------------------------------------------------------------------------------------
+
     render() {
         let childs = []
+
         Children.map(this.props.children, (child,index) => {childs[index]=child})
+        
         let row = Array(Math.floor(childs.length / this.props.columns) + 1).fill(0)
         let col = Array(this.props.columns).fill(0)
         
@@ -40,20 +51,21 @@ export default class girdGroup extends Component {
     }
 };
 
+//------------------------------------------------------------------------------------------
+
 const style = StyleSheet.create(
     {
         row : { 
             // backgroundColor : color.textGray,
             // justifyContent: 'flex-start',
             justifyContent: 'space-between',
+            alignItems: 'center',
             flexDirection: 'row',
-            // flex : 1
         },
         
         element : {
             // backgroundColor : color.test,
             alignItems: 'center',
-            // flex :1
         }
     }
 )
