@@ -45,7 +45,8 @@ export class scrChat extends Component {
         if (phut < 60) return phut +'phút'
         if (phut >= 60 && phut < 1440) return Math.floor(phut/60) +'giờ'
         if (phut >= 1440 && phut < 10080) return Math.floor(phut/1440) +'ngày'
-        if (phut >= 10080) return time.toLocaleDateString('en-GB')
+        if (phut >= 10080) return (new Date(time)).toLocaleDateString('en-GB')
+        
     }
 
     componentDidMount = () => {
